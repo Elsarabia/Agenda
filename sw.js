@@ -1,7 +1,7 @@
 /* Agenda — service worker
    Guarda la app en el teléfono para que abra sin internet.
    Sube la versión cuando cambies index.html para forzar la actualización. */
-const VERSION = 'agenda-v9';
+const VERSION = 'agenda-v13';
 const BASE = self.registration.scope;
 const ESENCIALES = [BASE, BASE + 'index.html'];
 
