@@ -217,7 +217,8 @@
   /* ajustes */
   .ajuste{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;margin-bottom:8px;box-shadow:var(--shadow)}
   .ajuste .nom{margin-bottom:9px}
-  .opciones{display:flex;gap:6px}
+  .opciones{display:flex;gap:6px;flex-wrap:wrap}
+  .opciones button{min-width:74px}
   .opciones button{flex:1;padding:9px 4px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);font-size:13px;color:var(--ink-2)}
   .opciones button.on{background:var(--jade);border-color:var(--jade);color:#fff;font-weight:600}
 
@@ -729,6 +730,23 @@ html[data-simplificado="true"] nav button{font-size:11.5px}
   width:4px;height:4px;border-radius:50%;background:var(--ink-2)}
 .dia.sel .pt{background:var(--jade)}
 .dia.sel.n3 .pt,.dia.sel.n4 .pt{background:#fff}
+
+/* paletas nuevas */
+html[data-color="cielo"]{--jade:#1B6FB8;--jade-fuerte:#114C80;--jade-soft:#DBEAF7;--h1:#DEECF8;--h2:#A8CBE9;--h3:#4E96CE;--h4:#1B6FB8;--h2-txt:#114C80;--halo-a:rgba(27,111,184,.18)}
+html[data-color="violeta"]{--jade:#6D3CC0;--jade-fuerte:#4A2688;--jade-soft:#E8DFF8;--h1:#EAE2F9;--h2:#C4AEEB;--h3:#8E67D3;--h4:#6D3CC0;--h2-txt:#4A2688;--halo-a:rgba(109,60,192,.18)}
+html[data-color="rosa"]{--jade:#C43070;--jade-fuerte:#8A1F4C;--jade-soft:#FBDCE9;--h1:#FCE0EC;--h2:#F0ADC9;--h3:#DA6699;--h4:#C43070;--h2-txt:#8A1F4C;--halo-a:rgba(196,48,112,.18)}
+html[data-color="lima"]{--jade:#5C8A0F;--jade-fuerte:#3D5D08;--jade-soft:#E7F2D2;--h1:#EAF4D8;--h2:#C3DE97;--h3:#86B33F;--h4:#5C8A0F;--h2-txt:#3D5D08;--halo-a:rgba(92,138,15,.18)}
+html[data-color="cobre"]{--jade:#B0501A;--jade-fuerte:#7B3611;--jade-soft:#FBE3D4;--h1:#FCE7DA;--h2:#F1BC96;--h3:#D6813F;--h4:#B0501A;--h2-txt:#7B3611;--halo-a:rgba(176,80,26,.18)}
+html[data-color="acero"]{--jade:#47607A;--jade-fuerte:#2E4155;--jade-soft:#DFE6EC;--h1:#E2E8EE;--h2:#B0C0CE;--h3:#6B84A0;--h4:#47607A;--h2-txt:#2E4155;--halo-a:rgba(71,96,122,.18)}
+html[data-tema="oscuro"][data-color="cielo"]{--jade:#5FB0EE;--jade-fuerte:#8FCBF5;--jade-soft:#16324A;--h1:#1A3A55;--h2:#2D6392;--h3:#4189C4;--h4:#5FB0EE;--h2-txt:#D5EAFA;--halo-a:rgba(95,176,238,.18)}
+html[data-tema="oscuro"][data-color="violeta"]{--jade:#A987F2;--jade-fuerte:#C3ACF8;--jade-soft:#2C1F52;--h1:#31245C;--h2:#543F94;--h3:#7B60C6;--h4:#A987F2;--h2-txt:#E6DBFB;--halo-a:rgba(169,135,242,.18)}
+html[data-tema="oscuro"][data-color="rosa"]{--jade:#F284B0;--jade-fuerte:#F7AECB;--jade-soft:#4A1B30;--h1:#551F37;--h2:#8A3560;--h3:#BC5688;--h4:#F284B0;--h2-txt:#FBDDE9;--halo-a:rgba(242,132,176,.18)}
+html[data-tema="oscuro"][data-color="lima"]{--jade:#9CCB4F;--jade-fuerte:#BADD84;--jade-soft:#2C3D10;--h1:#334614;--h2:#4F6D22;--h3:#74983A;--h4:#9CCB4F;--h2-txt:#E4F2CB;--halo-a:rgba(156,203,79,.18)}
+html[data-tema="oscuro"][data-color="cobre"]{--jade:#E89457;--jade-fuerte:#F2B589;--jade-soft:#472412;--h1:#522A15;--h2:#874A22;--h3:#B26B35;--h4:#E89457;--h2-txt:#FBE4D3;--halo-a:rgba(232,148,87,.18)}
+html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D8;--jade-soft:#24303D;--h1:#293745;--h2:#445A72;--h3:#62799A;--h4:#90A8C0;--h2-txt:#DFE9F2;--halo-a:rgba(144,168,192,.18)}
+
+.colores{gap:11px}
+.colores button{width:38px;height:38px}
 </style>
 </head>
 <body>
@@ -1022,6 +1040,10 @@ html[data-simplificado="true"] nav button{font-size:11.5px}
     <div class="ajuste">
       <div class="nom" data-i="fondoAnimado"></div>
       <div class="opciones" id="opFondo"></div>
+    </div>
+    <div class="ajuste">
+      <div class="nom" data-i="ambiente"></div>
+      <div class="opciones" id="opAmbiente" style="flex-wrap:wrap"></div>
     </div>
     <div class="ajuste">
       <div class="nom" data-i="tamLetra"></div>
@@ -1385,7 +1407,9 @@ es:{
  plNegocioT:'Disciplina de negocio',plNegocioD:'Para quien trabaja por su cuenta.',
  plCalmaT:'Cerrar bien el día',plCalmaD:'Rutina de noche para dormir y arrancar mejor.',
  agregados:'hábitos agregados',subir:'Subir',bajar:'Bajar',orden:'Orden',
- colorAcento:'Color de acento',cJade:'Jade',cIndigo:'Índigo',cMagenta:'Magenta',cAmbar:'Ámbar',cCoral:'Coral',cTurquesa:'Turquesa',
+ ambiente:'Ambiente del fondo',aPuntos:'Puntos',aFaroles:'Faroles',aPetalos:'Pétalos',
+ aBurbujas:'Burbujas',aLuciernagas:'Luciérnagas',aNinguno:'Nada',
+ colorAcento:'Color de acento',cJade:'Jade',cCielo:'Cielo',cVioleta:'Violeta',cRosa:'Rosa',cLima:'Lima',cCobre:'Cobre',cAcero:'Acero',cIndigo:'Índigo',cMagenta:'Magenta',cAmbar:'Ámbar',cCoral:'Coral',cTurquesa:'Turquesa',
  cuenta:'Cuenta',sinCuenta:'Sin cuenta. Tus datos solo están en este dispositivo.',
  correo:'Correo',contrasena:'Contraseña',entrar:'Entrar',crearCuenta:'Crear cuenta',
  cerrarSesion:'Cerrar sesión',sincronizarAhora:'Sincronizar ahora',sesionComo:'Sesión iniciada como',
@@ -1570,7 +1594,9 @@ en:{
  plNegocioT:'Business discipline',plNegocioD:'For people working for themselves.',
  plCalmaT:'Close the day well',plCalmaD:'An evening routine for better sleep and a better start.',
  agregados:'habits added',subir:'Up',bajar:'Down',orden:'Order',
- colorAcento:'Accent colour',cJade:'Jade',cIndigo:'Indigo',cMagenta:'Magenta',cAmbar:'Amber',cCoral:'Coral',cTurquesa:'Teal',
+ ambiente:'Background mood',aPuntos:'Dots',aFaroles:'Lanterns',aPetalos:'Petals',
+ aBurbujas:'Bubbles',aLuciernagas:'Fireflies',aNinguno:'None',
+ colorAcento:'Accent colour',cJade:'Jade',cCielo:'Sky',cVioleta:'Violet',cRosa:'Rose',cLima:'Lime',cCobre:'Copper',cAcero:'Steel',cIndigo:'Indigo',cMagenta:'Magenta',cAmbar:'Amber',cCoral:'Coral',cTurquesa:'Teal',
  cuenta:'Account',sinCuenta:'No account. Your data only lives on this device.',
  correo:'Email',contrasena:'Password',entrar:'Sign in',crearCuenta:'Create account',
  cerrarSesion:'Sign out',sincronizarAhora:'Sync now',sesionComo:'Signed in as',
@@ -1788,7 +1814,7 @@ function semilla(){
     ],
     registro:{},movs:[],
     metas:[{id:uid(),nom:'Fondo de emergencia',desc:'Tres meses de gastos cubiertos.',obj:30000,fecha:''}],
-    config:{idioma:'es',tema:'auto',color:'jade',fondo:'completo'}
+    config:{idioma:'es',tema:'auto',color:'jade',fondo:'completo',ambiente:'puntos'}
   };
 }
 
@@ -1855,8 +1881,10 @@ function suma(l,tp){return l.filter(m=>m.tipo===tp).reduce((a,m)=>a+m.monto,0);}
 function ahorradoEn(id){return D.movs.filter(m=>m.tipo==='ahorro'&&m.metaId===id).reduce((a,m)=>a+m.monto,0);}
 
 /* ============ tema e idioma ============ */
-const COLORES=[['jade','cJade','#17705A'],['turquesa','cTurquesa','#0A7C8C'],['indigo','cIndigo','#4A45C7'],
-               ['magenta','cMagenta','#B5297F'],['coral','cCoral','#C4392F'],['ambar','cAmbar','#B26A05']];
+const COLORES=[['jade','cJade','#17705A'],['lima','cLima','#5C8A0F'],['turquesa','cTurquesa','#0A7C8C'],
+               ['cielo','cCielo','#1B6FB8'],['indigo','cIndigo','#4A45C7'],['violeta','cVioleta','#6D3CC0'],
+               ['magenta','cMagenta','#B5297F'],['rosa','cRosa','#C43070'],['coral','cCoral','#C4392F'],
+               ['cobre','cCobre','#B0501A'],['ambar','cAmbar','#B26A05'],['acero','cAcero','#47607A']];
 async function setColor(c){
   D.config.color=c;await escribir(D);aplicarTema();pintarAjustes();sonMarcar();
 }
@@ -1919,6 +1947,11 @@ function pintarAjustes(){
   const ca=D.config.color||'jade';
   document.getElementById('opColor').innerHTML=COLORES.map(c=>
     '<button class="'+(ca===c[0]?'on':'')+'" style="background:'+c[2]+'" title="'+t(c[1])+'" aria-label="'+t(c[1])+'" onclick="setColor(\''+c[0]+'\')"></button>').join('');
+  const am=(D.config.ambiente||'puntos');
+  const eA=document.getElementById('opAmbiente');
+  if(eA)eA.innerHTML=[['puntos','aPuntos'],['faroles','aFaroles'],['petalos','aPetalos'],
+    ['burbujas','aBurbujas'],['luciernagas','aLuciernagas'],['ninguno','aNinguno']].map(v=>
+    '<button class="'+(am===v[0]?'on':'')+'" onclick="setAmbiente(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
   const fo=(D.config.fondo||'completo');
   document.getElementById('opFondo').innerHTML=[['completo','fCompleto'],['suave','fSuave'],['apagado','fApagado']].map(v=>
     '<button class="'+(fo===v[0]?'on':'')+'" onclick="setFondo(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
@@ -2564,41 +2597,123 @@ async function setSonido(v){D.config.sonido=v;await escribir(D);pintarAjustes();
 
 /* ============ partículas ============ */
 const rafs={};
+let spriteGlow=null;
+function glow(){
+  if(spriteGlow)return spriteGlow;
+  const c=document.createElement('canvas');c.width=c.height=64;
+  const x=c.getContext('2d');
+  const g=x.createRadialGradient(32,32,0,32,32,32);
+  g.addColorStop(0,'rgba(255,255,255,1)');
+  g.addColorStop(.35,'rgba(255,255,255,.55)');
+  g.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=g;x.fillRect(0,0,64,64);
+  spriteGlow=c;return c;
+}
+const AMBIENTES={
+  puntos:     {n:1.0, sube:true},
+  faroles:    {n:0.45,sube:true},
+  petalos:    {n:0.75,sube:false},
+  burbujas:   {n:0.65,sube:true},
+  luciernagas:{n:0.9, sube:true}
+};
+function estiloAmbiente(){return (D.config&&D.config.ambiente)||'puntos';}
+
 function iniciarParticulas(id,n){
   const c=document.getElementById(id);if(!c||!c.getContext)return;
   if(rafs[id])return;
+  const est=estiloAmbiente();
+  if(est==='ninguno'){const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);return;}
+  const cfg=AMBIENTES[est]||AMBIENTES.puntos;
   const x=c.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
   const quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let W=0,H=0;const ps=[];
   function dim(){W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;}
   dim();addEventListener('resize',dim);
-  const N=quieto?Math.round(n/2):n;
-  for(let i=0;i<N;i++)ps.push({x:Math.random(),y:Math.random(),
-    r:Math.random()*1.9+.9,vx:(Math.random()-.5)*.00035,vy:-(Math.random()*.00055+.00018),
-    a:Math.random()*.45+.18,c:i%5});
-  const CLARO=['23,112,90','10,124,140','74,69,199','181,41,127','178,106,5'];
+  const N=Math.max(6,Math.round((quieto?n/2:n)*cfg.n));
+  for(let i=0;i<N;i++){
+    ps.push({
+      x:Math.random(), y:Math.random(),
+      r:(est==='faroles'?Math.random()*7+7:est==='burbujas'?Math.random()*7+3:Math.random()*1.9+.9),
+      vx:(Math.random()-.5)*.00035,
+      vy:(cfg.sube?-1:1)*(Math.random()*.00050+.00016),
+      a:Math.random()*.45+.20, c:i%5,
+      fase:Math.random()*6.2832, giro:Math.random()*6.2832,
+      vgiro:(Math.random()-.5)*.02, amp:Math.random()*.012+.004
+    });
+  }
+  const CLARO =['23,112,90','10,124,140','74,69,199','181,41,127','178,106,5'];
   const OSCURO=['95,209,174','79,188,206','139,135,240','236,119,190','229,167,63'];
-  function dibuja(pal){
+  const FAROL =['255,196,92','255,171,64','255,214,130','255,183,77','255,205,110'];
+  const PETALO=['244,178,214','232,200,246','250,206,220','214,184,244','255,214,232'];
+  const t0=performance.now();
+
+  function dibuja(p,pal,t){
+    const px=p.x*W, py=p.y*H, r=p.r*dpr;
+    if(est==='faroles'){
+      const col=FAROL[p.c], g=glow();
+      x.globalAlpha=p.a*0.85;
+      const s=r*4.2;
+      x.drawImage(g,px-s,py-s,s*2,s*2);
+      x.globalAlpha=Math.min(p.a*1.6,1);
+      x.fillStyle='rgba('+col+',1)';
+      x.beginPath();
+      x.ellipse(px,py,r*0.52,r*0.74,0,0,6.2832);
+      x.fill();
+      x.globalAlpha=1;
+    }else if(est==='petalos'){
+      x.save();x.translate(px,py);x.rotate(p.giro);
+      x.fillStyle='rgba('+PETALO[p.c]+','+p.a+')';
+      x.beginPath();
+      x.ellipse(0,0,r*2.6,r*1.2,0,0,6.2832);
+      x.fill();
+      x.restore();
+    }else if(est==='burbujas'){
+      x.strokeStyle='rgba('+pal[p.c]+','+(p.a*0.85)+')';
+      x.lineWidth=1.4*dpr;
+      x.beginPath();x.arc(px,py,r,0,6.2832);x.stroke();
+      x.fillStyle='rgba(255,255,255,'+(p.a*0.30)+')';
+      x.beginPath();x.arc(px-r*0.32,py-r*0.32,r*0.24,0,6.2832);x.fill();
+    }else if(est==='luciernagas'){
+      const pulso=0.35+0.65*Math.abs(Math.sin(t*0.0016+p.fase));
+      x.globalAlpha=p.a*pulso;
+      const g=glow(), s=r*5;
+      x.drawImage(g,px-s,py-s,s*2,s*2);
+      x.globalAlpha=Math.min(p.a*pulso*1.8,1);
+      x.fillStyle='rgba(255,240,170,1)';
+      x.beginPath();x.arc(px,py,r*0.8,0,6.2832);x.fill();
+      x.globalAlpha=1;
+    }else{
+      x.fillStyle='rgba('+pal[p.c]+','+p.a+')';
+      x.beginPath();x.arc(px,py,r,0,6.2832);x.fill();
+    }
+  }
+  function paso(t){
+    const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
     x.clearRect(0,0,W,H);
     for(const p of ps){
-      x.beginPath();x.arc(p.x*W,p.y*H,p.r*dpr,0,6.2832);
-      x.fillStyle='rgba('+pal[p.c]+','+p.a+')';x.fill();
+      p.x+=p.vx+Math.sin(t*0.0004+p.fase)*p.amp*0.02;
+      p.y+=p.vy;
+      p.giro+=p.vgiro;
+      if(cfg.sube&&p.y<-.08){p.y=1.08;p.x=Math.random();}
+      if(!cfg.sube&&p.y>1.08){p.y=-.08;p.x=Math.random();}
+      if(p.x<-.08)p.x=1.08; if(p.x>1.08)p.x=-.08;
+      dibuja(p,pal,t-t0);
     }
-  }
-  function paso(){
-    const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
-    for(const p of ps){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.y<-.06){p.y=1.06;p.x=Math.random();}
-      if(p.x<-.06)p.x=1.06; if(p.x>1.06)p.x=-.06;
-    }
-    dibuja(pal);
     rafs[id]=requestAnimationFrame(paso);
   }
-  if(quieto)dibuja(document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO);
-  else paso();
+  if(quieto){const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
+    for(const p of ps)dibuja(p,pal,0);}
+  else paso(performance.now());
 }
 function pararParticulas(id){if(rafs[id]){cancelAnimationFrame(rafs[id]);rafs[id]=null;}}
+async function setAmbiente(v){
+  D.config.ambiente=v;await escribir(D);
+  pararParticulas('particulasApp');pararParticulas('particulas');
+  aplicarFondo();
+  const a=document.getElementById('pantallaAuth');
+  if(a&&a.style.display==='flex')iniciarParticulas('particulas',32);
+  pintarAjustes();sonPestana();
+}
 
 /* ============ fondo de la app ============ */
 function aplicarFondo(){
