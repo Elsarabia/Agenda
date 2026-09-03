@@ -1,7 +1,7 @@
 /* Agenda — service worker
    Guarda la app en el teléfono para que abra sin internet.
    Sube la versión cuando cambies index.html para forzar la actualización. */
-const VERSION = 'agenda-v3';
+const VERSION = 'agenda-v9';
 const BASE = self.registration.scope;
 const ESENCIALES = [BASE, BASE + 'index.html'];
 
@@ -58,6 +58,34 @@ self.addEventListener('fetch', e => {
         })
         .catch(() => cacheado);
       return cacheado || red;
+    })
+  );
+});
+
+/* ---------- Notificaciones ---------- */
+self.addEventListener('push', e => {
+  let d = { titulo: 'Agenda', cuerpo: '', tag: 'agenda' };
+  try { if (e.data) d = { ...d, ...e.data.json() }; } catch (_) {}
+  e.waitUntil(
+    self.registration.showNotification(d.titulo, {
+      body: d.cuerpo,
+      tag: d.tag,
+      icon: BASE + 'icono.png',
+      badge: BASE + 'icono.png',
+      data: { url: BASE }
+    })
+  );
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const destino = (e.notification.data && e.notification.data.url) || BASE;
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(lista => {
+      for (const c of lista) {
+        if (c.url.startsWith(BASE) && 'focus' in c) return c.focus();
+      }
+      return self.clients.openWindow(destino);
     })
   );
 });
