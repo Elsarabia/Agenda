@@ -418,6 +418,60 @@ html[data-tema="oscuro"] .auth-marca{
 @media (prefers-reduced-motion:reduce){
   .aurora b,.auth-marca,.auth-card::after{animation:none!important}
 }
+
+/* ==================== ambiente dentro de la app ==================== */
+:root{--grad:linear-gradient(100deg,var(--h3) 0%,var(--jade) 52%,var(--jade-fuerte) 100%)}
+.fondo-app{position:fixed;inset:-25%;z-index:-2;pointer-events:none;overflow:hidden}
+#particulasApp{position:fixed;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none;opacity:.6}
+html[data-fondo="suave"] #particulasApp{display:none}
+html[data-fondo="apagado"] #particulasApp{display:none}
+html[data-fondo="apagado"] .fondo-app{display:none}
+html[data-fondo="suave"] .fondo-app b{animation-duration:70s!important}
+.fondo-app b{opacity:.52}
+html[data-tema="oscuro"] .fondo-app b{opacity:.42}
+body.oculto .fondo-app b,body.oculto #particulasApp{animation-play-state:paused}
+
+/* texto con degradado */
+.grad-txt,.tit b,.pct,.saldo-num,.kpi b,.marca-app{
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent}
+.pct small{-webkit-text-fill-color:var(--ink-2)}
+.saldo-num.rojo{background:none;-webkit-text-fill-color:var(--rust);color:var(--rust)}
+.tit span{-webkit-text-fill-color:var(--ink-2)}
+
+/* encabezado de marca */
+.marca-barra{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:16px 2px 2px}
+.marca-app{font-family:'Fraunces',Georgia,serif;font-size:27px;font-weight:600;letter-spacing:-.7px;line-height:1}
+.marca-pie{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+
+/* más cristal, menos sólido */
+.lista,.meta-c,.kpi,.barras,table,.ajuste,.vacio,.frase{
+  background:color-mix(in srgb,var(--card) 62%,transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid var(--glass-borde)}
+.fila{border-bottom-color:color-mix(in srgb,var(--linea-suave) 60%,transparent)}
+th{background:color-mix(in srgb,var(--th) 55%,transparent)}
+.relojes,.medidor,.saldo,.periodo-sel,.cal{background:color-mix(in srgb,var(--card) 46%,transparent)}
+.campo,.filtros button,.opciones button,.tipo-sel button,.dias-sem button{
+  background:color-mix(in srgb,var(--card) 70%,transparent)}
+
+/* acentos de color en controles */
+.btn:not(.ghost){background:var(--grad);color:#fff;border:none}
+.check.on{background:var(--grad);border-color:transparent}
+.seg.on{background:var(--grad)}
+.seg.on.parcial{background:var(--h2)}
+.meta-barra i,.barrita i:not(.amarilla):not(.roja),.col i:not(.vacia){background:var(--grad)}
+.col.vacia i{background:color-mix(in srgb,var(--fill) 70%,transparent)}
+.dia.n4{background:var(--grad)}
+.dia.hoy{border-color:var(--jade);box-shadow:0 0 0 1px var(--jade)}
+.filtros button.act,.opciones button.on,.tipo-sel button.on,.dias-sem button.on{
+  background:var(--grad);border-color:transparent;color:#fff}
+.filtros button.act{color:#fff}
+nav button.act{color:var(--jade)}
+.tag.jade{background:color-mix(in srgb,var(--jade-soft) 80%,transparent)}
+.ano-grid i.n4{background:var(--grad)}
+
+@media (prefers-reduced-motion:reduce){ .fondo-app b{animation:none!important} }
 </style>
 </head>
 <body>
@@ -456,10 +510,17 @@ html[data-tema="oscuro"] .auth-marca{
   </div>
 </div>
 
+<div class="fondo-app aurora"><b></b><b></b><b></b><b></b></div>
+<canvas id="particulasApp"></canvas>
+
 <div class="wrap">
   <!-- INICIO -->
   <section id="s-inicio" class="act">
-    <div class="relojes">
+    <div class="marca-barra">
+      <div class="marca-app">Agenda</div>
+      <div class="marca-pie">habits · money · focus</div>
+    </div>
+    <div class="relojes" style="margin-top:10px">
       <button class="tema-btn" onclick="ciclarTema()" aria-label="Tema">
         <svg viewBox="0 0 24 24" id="iconoTema"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
@@ -627,6 +688,10 @@ html[data-tema="oscuro"] .auth-marca{
     <div class="ajuste">
       <div class="nom" data-i="colorAcento"></div>
       <div class="colores" id="opColor"></div>
+    </div>
+    <div class="ajuste">
+      <div class="nom" data-i="fondoAnimado"></div>
+      <div class="opciones" id="opFondo"></div>
     </div>
 
     <div class="tit"><b data-i="cuenta"></b><span id="estadoSync"></span></div>
@@ -816,6 +881,7 @@ es:{
  tuto4t:'Empieza con pocos',tuto4d:'En Hábitos puedes crear, editar y elegir qué días aplica cada uno. Un consejo que vale más que la app entera: arranca con tres o cuatro. Cumplir cuatro vale más que fallar diez.',
  tuto5t:'El dinero, sin drama',tuto5d:'Registra gastos e ingresos en dos toques, pon topes mensuales por categoría y crea metas de ahorro con barra de progreso. Lo que apartas para una meta se descuenta de tu saldo, porque dinero apartado ya no está disponible.',
  tuto6t:'Mira tus números',tuto6d:'En Datos revisas cumplimiento por día, semana o mes, con flechas para retroceder. Ahí también está la vista del año completo, tu cuenta para sincronizar y la copia de seguridad. Bájala de vez en cuando.',
+ fondoAnimado:'Fondo animado',fCompleto:'Completo',fSuave:'Suave',fApagado:'Apagado',
  colorAcento:'Color de acento',cJade:'Jade',cIndigo:'Índigo',cMagenta:'Magenta',cAmbar:'Ámbar',cCoral:'Coral',cTurquesa:'Turquesa',
  cuenta:'Cuenta',sinCuenta:'Sin cuenta. Tus datos solo están en este dispositivo.',
  correo:'Correo',contrasena:'Contraseña',entrar:'Entrar',crearCuenta:'Crear cuenta',
@@ -906,6 +972,7 @@ en:{
  tuto4t:'Start with a few',tuto4d:'In Habits you create, edit and pick which days each one applies. One tip worth more than the whole app: start with three or four. Keeping four beats missing ten.',
  tuto5t:'Money, no drama',tuto5d:'Log expenses and income in two taps, set monthly limits per category and create savings goals with a progress bar. What you set aside for a goal is subtracted from your balance, because money set aside is not available.',
  tuto6t:'Look at your numbers',tuto6d:'In Stats you review completion by day, week or month, with arrows to go back. The full year view lives there too, along with your account for syncing and the backup file. Download it now and then.',
+ fondoAnimado:'Animated background',fCompleto:'Full',fSuave:'Gentle',fApagado:'Off',
  colorAcento:'Accent colour',cJade:'Jade',cIndigo:'Indigo',cMagenta:'Magenta',cAmbar:'Amber',cCoral:'Coral',cTurquesa:'Teal',
  cuenta:'Account',sinCuenta:'No account. Your data only lives on this device.',
  correo:'Email',contrasena:'Password',entrar:'Sign in',crearCuenta:'Create account',
@@ -1099,7 +1166,7 @@ function color(p){return p>=80?'var(--jade)':p>=50?'var(--amber)':'var(--rust)';
 function corta(s){const d=desdeIso(s);return d.getDate()+' '+MESES()[d.getMonth()].slice(0,3);}
 function semanaDelAno(d){const a=new Date(d.getFullYear(),0,1);return Math.ceil(((d-a)/86400000+a.getDay()+1)/7);}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
+function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.planes=D.planes||[];D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
 
 function semilla(){
   const t7=[1,1,1,1,1,1,1], lv=[1,1,1,1,1,0,0];
@@ -1119,7 +1186,7 @@ function semilla(){
     ],
     registro:{},movs:[],
     metas:[{id:uid(),nom:'Fondo de emergencia',desc:'Tres meses de gastos cubiertos.',obj:30000,fecha:''}],
-    config:{idioma:'es',tema:'auto',color:'jade'}
+    config:{idioma:'es',tema:'auto',color:'jade',fondo:'completo'}
   };
 }
 
@@ -1157,6 +1224,7 @@ function aplicarConfig(){
   idioma=D.config.idioma||'es';
   document.documentElement.lang=idioma;
   aplicarTema();
+  aplicarFondo();
   pintarTextos();
 }
 function temaEfectivo(){
@@ -1204,6 +1272,9 @@ function pintarAjustes(){
   const ca=D.config.color||'jade';
   document.getElementById('opColor').innerHTML=COLORES.map(c=>
     '<button class="'+(ca===c[0]?'on':'')+'" style="background:'+c[2]+'" title="'+t(c[1])+'" aria-label="'+t(c[1])+'" onclick="setColor(\''+c[0]+'\')"></button>').join('');
+  const fo=(D.config.fondo||'completo');
+  document.getElementById('opFondo').innerHTML=[['completo','fCompleto'],['suave','fSuave'],['apagado','fApagado']].map(v=>
+    '<button class="'+(fo===v[0]?'on':'')+'" onclick="setFondo(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
   const so=D.config.sonido!==false;
   document.getElementById('opSonido').innerHTML=
     '<button class="'+(so?'on':'')+'" onclick="setSonido(true)">'+t('activado')+'</button>'+
@@ -1770,52 +1841,70 @@ function vibrar(ms){if(navigator.vibrate)try{navigator.vibrate(ms);}catch(e){}}
 async function setSonido(v){D.config.sonido=v;await escribir(D);pintarAjustes();if(v)sonMarcar();}
 
 /* ============ partículas ============ */
-let rafPart=null;
-function iniciarParticulas(){
-  const c=document.getElementById('particulas');if(!c||!c.getContext)return;
+const rafs={};
+function iniciarParticulas(id,n){
+  const c=document.getElementById(id);if(!c||!c.getContext)return;
+  if(rafs[id])return;
   const x=c.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
   const quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W=0,H=0,ps=[];
+  let W=0,H=0;const ps=[];
   function dim(){W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;}
   dim();addEventListener('resize',dim);
-  const N=quieto?16:32;
+  const N=quieto?Math.round(n/2):n;
   for(let i=0;i<N;i++)ps.push({x:Math.random(),y:Math.random(),
     r:Math.random()*1.9+.9,vx:(Math.random()-.5)*.00035,vy:-(Math.random()*.00055+.00018),
-    a:Math.random()*.45+.18});
+    a:Math.random()*.45+.18,c:i%5});
   const CLARO=['23,112,90','10,124,140','74,69,199','181,41,127','178,106,5'];
   const OSCURO=['95,209,174','79,188,206','139,135,240','236,119,190','229,167,63'];
-  ps.forEach((p,i)=>p.c=i%5);
-  function paso(){
+  function dibuja(pal){
     x.clearRect(0,0,W,H);
+    for(const p of ps){
+      x.beginPath();x.arc(p.x*W,p.y*H,p.r*dpr,0,6.2832);
+      x.fillStyle='rgba('+pal[p.c]+','+p.a+')';x.fill();
+    }
+  }
+  function paso(){
     const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
     for(const p of ps){
       p.x+=p.vx;p.y+=p.vy;
       if(p.y<-.06){p.y=1.06;p.x=Math.random();}
       if(p.x<-.06)p.x=1.06; if(p.x>1.06)p.x=-.06;
-      x.beginPath();x.arc(p.x*W,p.y*H,p.r*dpr,0,6.2832);
-      x.fillStyle='rgba('+pal[p.c]+','+p.a+')';x.fill();
     }
-    rafPart=requestAnimationFrame(paso);
+    dibuja(pal);
+    rafs[id]=requestAnimationFrame(paso);
   }
-  if(quieto){const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
-    for(const p of ps){x.beginPath();x.arc(p.x*W,p.y*H,p.r*dpr,0,6.2832);x.fillStyle='rgba('+pal[p.c]+','+p.a+')';x.fill();}}
+  if(quieto)dibuja(document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO);
   else paso();
 }
-function pararParticulas(){if(rafPart){cancelAnimationFrame(rafPart);rafPart=null;}}
+function pararParticulas(id){if(rafs[id]){cancelAnimationFrame(rafs[id]);rafs[id]=null;}}
+
+/* ============ fondo de la app ============ */
+function aplicarFondo(){
+  const f=(D.config&&D.config.fondo)||'completo';
+  document.documentElement.setAttribute('data-fondo',f);
+  if(f==='completo')iniciarParticulas('particulasApp',18);
+  else pararParticulas('particulasApp');
+}
+async function setFondo(v){D.config.fondo=v;await escribir(D);aplicarFondo();pintarAjustes();}
+document.addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('oculto',document.hidden);
+  if(document.hidden)pararParticulas('particulasApp');
+  else if(((D.config&&D.config.fondo)||'completo')==='completo')iniciarParticulas('particulasApp',18);
+});
 
 /* ============ pantalla de acceso ============ */
 const SIN_CUENTA='agendaPro:sinCuenta';
 function mostrarAuth(){
   const e=document.getElementById('pantallaAuth');
   e.style.display='flex';e.classList.remove('fuera');
-  textosAuth();if(!rafPart)iniciarParticulas();
+  textosAuth();iniciarParticulas('particulas',32);
 }
 function ocultarAuth(){
   const e=document.getElementById('pantallaAuth');
   if(e.style.display==='none')return;
   e.classList.add('fuera');
   setTimeout(()=>{
-    e.style.display='none';pararParticulas();
+    e.style.display='none';pararParticulas('particulas');
     let v=false;try{v=localStorage.getItem(VISTO)==='1';}catch(err){}
     if(!v)setTimeout(abrirTuto,250);
   },460);
@@ -1875,7 +1964,7 @@ function cerrarTuto(){
 
 /* ============ nota del día ============ */
 async function guardarNota(fecha,val){
-  D.notas=D.notas||{};
+  D.notas=D.notas||{};D.planes=D.planes||[];
   const v=(val||'').trim();
   if(v)D.notas[fecha]=v;else delete D.notas[fecha];
   await escribir(D);
@@ -1962,6 +2051,58 @@ function siguienteFecha(dias,desde){
   for(let i=1;i<=14;i++){d.setDate(d.getDate()+1);if(dias[idxSem(d)])return iso(d);}
   return null;
 }
+
+
+/* ============================================================
+   PLANES COMPARTIDOS — cimientos, todavía sin interfaz.
+   Encender con GRUPOS.activo = true cuando exista el respaldo
+   en Supabase. Ver RUTA-GRUPOS.md para el plan completo.
+   ============================================================ */
+const GRUPOS={
+  activo:false,
+  /* Un plan compartido es una tarea con dueño y participantes.
+     Vive en D.planes y NO se mezcla con D.tareas hasta que se acepte,
+     para que un plan ajeno nunca ensucie tu lista sin tu permiso. */
+  nuevo(titulo,fecha,invitados){
+    return {id:uid(),titulo,fecha,hora:null,lugar:'',
+      dueno:(sesion&&sesion.user&&sesion.user.email)||null,
+      invitados:(invitados||[]).map(c=>({correo:c.trim().toLowerCase(),estado:'pendiente'})),
+      estado:'propuesto',   // propuesto | confirmado | cancelado | hecho
+      creado:new Date().toISOString(),
+      version:1};
+  },
+  /* Estado del plan visto desde este usuario. */
+  miEstado(plan){
+    const yo=(sesion&&sesion.user&&sesion.user.email)||null;
+    if(!yo)return 'invitado';
+    if(plan.dueno===yo)return 'dueno';
+    const i=plan.invitados.find(x=>x.correo===yo);
+    return i?i.estado:'ajeno';
+  },
+  confirmados(plan){return plan.invitados.filter(i=>i.estado==='aceptado').length+1;},
+  /* Los planes aceptados se proyectan sobre el calendario y la lista
+     de tareas sin duplicarse en D.tareas: se calculan al vuelo. */
+  delDia(fecha){
+    if(!this.activo)return [];
+    return (D.planes||[]).filter(p=>p.fecha===fecha&&p.estado!=='cancelado'&&
+      ['dueno','aceptado'].includes(this.miEstado(p)));
+  },
+  pendientesDeResponder(){
+    if(!this.activo)return [];
+    return (D.planes||[]).filter(p=>this.miEstado(p)==='pendiente'&&p.estado!=='cancelado');
+  },
+  /* Resolución de conflictos: gana la versión más alta; a igual
+     versión, gana la fecha de modificación más reciente. */
+  fusionar(local,remoto){
+    const m={};
+    (local||[]).forEach(p=>m[p.id]=p);
+    (remoto||[]).forEach(p=>{
+      const a=m[p.id];
+      if(!a||p.version>a.version||(p.version===a.version&&p.creado>a.creado))m[p.id]=p;
+    });
+    return Object.values(m);
+  }
+};
 
 /* ============ arranque ============ */
 document.querySelectorAll('nav button').forEach(b=>{
