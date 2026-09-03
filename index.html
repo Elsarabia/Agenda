@@ -747,6 +747,30 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
 
 .colores{gap:11px}
 .colores button{width:38px;height:38px}
+
+.ap-drop{border:1px dashed var(--line);border-radius:14px;padding:22px 16px;text-align:center;
+  background:color-mix(in srgb,var(--card) 50%,transparent);margin-bottom:10px}
+.ap-drop svg{width:30px;height:30px;stroke:var(--ink-3);fill:none;stroke-width:1.5;opacity:.6;margin-bottom:8px}
+.ap-prev{width:100%;border-radius:14px;margin-bottom:10px;max-height:230px;object-fit:cover}
+.ap-sec{margin:18px 0 8px;font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:600}
+.ap-simple{padding:15px 16px;border-radius:14px;line-height:1.55;
+  background:color-mix(in srgb,var(--jade-soft) 55%,transparent);
+  border:1px solid color-mix(in srgb,var(--jade) 25%,transparent)}
+.ap-idea{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--linea-suave);line-height:1.45}
+.ap-idea:last-child{border-bottom:none}
+.ap-idea i{width:6px;height:6px;border-radius:50%;background:var(--jade);margin-top:8px;flex:none}
+.ap-term{padding:11px 0;border-bottom:1px solid var(--linea-suave)}
+.ap-term:last-child{border-bottom:none}
+.ap-term b{display:block;margin-bottom:3px}
+.ap-tarj{padding:12px 14px;border-radius:12px;margin-bottom:8px;
+  background:color-mix(in srgb,var(--card) 60%,transparent);border:1px solid var(--glass-borde)}
+.ap-tarj b{display:block;margin-bottom:5px}
+.ap-tarj span{color:var(--ink-2);font-size:14px}
+.ap-nota{font-size:12.5px;color:var(--ink-3);margin-top:14px;line-height:1.45}
+.ap-cargando{text-align:center;padding:34px 10px;color:var(--ink-2)}
+.ap-cargando i{display:block;width:34px;height:34px;margin:0 auto 14px;border-radius:50%;
+  border:3px solid var(--fill);border-top-color:var(--jade);animation:girar .9s linear infinite}
+@keyframes girar{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -809,6 +833,9 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
       <div style="display:flex;gap:8px">
         <button class="btn-icono" onclick="abrirBuscar()" aria-label="Buscar">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <button class="btn-icono" onclick="abrirApuntes()" aria-label="Apuntes">
+          <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H19v15H6.5A2.5 2.5 0 004 20.5z"/><path d="M8 7.5h7M8 11h5"/></svg>
         </button>
         <button class="btn-icono" onclick="abrirAjustes()" aria-label="Ajustes">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1A1.7 1.7 0 008 19.4a1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H2a2 2 0 110-4h.1A1.7 1.7 0 004.6 8a1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.5V2a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.5 1H22a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
@@ -1080,6 +1107,11 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
     <input type="file" id="inpRestaurar" accept="application/json" style="display:none" onchange="restaurar(this)">
     </div>
   <div class="acciones"><button class="btn ghost" onclick="cerrar('modalAjustes')" data-i="cancelar"></button></div>
+</div></div>
+
+<div class="modal" id="modalApuntes"><div class="hoja">
+  <h3 data-i="apuntes"></h3>
+  <div id="apCuerpo"></div>
 </div></div>
 <div class="modal" id="modalBuscar"><div class="hoja">
   <h3 data-i="buscar"></h3>
@@ -1371,6 +1403,27 @@ es:{
  detGasto:'¿Registrar',comoGasto:'como gasto?',si:'Sí',no:'No',
  fMananaP:'mañana',fPasadoP:'pasado',fLunes:'lunes',fMartes:'martes',fMiercoles:'miércoles',
  fJueves:'jueves',fViernes:'viernes',fSabado:'sábado',fDomingo:'domingo',fHoyP:'hoy',
+ apSaturado:'El modelo está saturado ahorita. Espera un minuto o prueba con el otro.',
+ apSinAcceso:'Esta función está reservada. Pídele acceso a Memo.',
+ apVencido:'Tu acceso a esta función venció.',apSinCreditos:'Se te acabaron los análisis disponibles.',
+ apRestantes:'análisis restantes',
+ apModelo:'¿Con cuál lo analizo?',apClaude:'Claude',apGemini:'Gemini',
+ apClaudeD:'Más preciso con textos técnicos',apGeminiD:'Gratis, un poco más simple',
+ apNoListo:'no configurado',apElegir:'Elegir imagen',apCamara:'Tomar foto',
+ apPrivacidad:'Al elegir una imagen, iOS te muestra su propio selector. La app solo recibe la foto que tú toques, nunca tu galería.',
+ apQuitar:'Quitar foto',
+ apuntes:'Apuntes',apFoto:'Tomar foto',apTexto:'Pegar texto',apAnalizar:'Entender esto',
+ apPensando:'Leyendo tus apuntes…',apTitulo:'Título',apMateria:'Materia',
+ apResumen:'De qué trata',apSimple:'En palabras simples',apIdeas:'Ideas principales',
+ apConceptos:'Términos que usa',apTarjetas:'Para repasar',apFechas:'Fechas que encontré',
+ apFaltante:'Esto no se alcanzó a leer',apGuardar:'Guardar como nota',apCrearTarea:'Crear tarea',
+ apOtra:'Analizar otra',apPegaAqui:'Pega o escribe aquí el texto técnico que quieres entender…',
+ apSinLlave:'Falta configurar la llave de la API en Supabase.',
+ apError:'No se pudo procesar. Intenta con otra foto o más luz.',
+ apSinSesion:'Entra a tu cuenta para usar esta función.',
+ apAviso:'La foto se procesa y se descarta, no se guarda en ningún lado.',
+ apGuardado:'Guardado en la nota del día',apNoLegal:'Es apoyo para estudiar, no asesoría legal.',
+ apElige:'Toma una foto de tus apuntes o pega el texto.',
  buscar:'Buscar',buscarPh:'Tarea, gasto, persona o nota…',sinResultados:'Nada encontrado.',
  resTareas:'Tareas',resMovs:'Movimientos',resNotas:'Notas',resPrestamos:'Préstamos',
  prestamos:'Préstamos',nuevoPrestamo:'Nuevo',porCobrar:'Por cobrar',porPagar:'Por pagar',
@@ -1558,6 +1611,27 @@ en:{
  detGasto:'Log',comoGasto:'as an expense?',si:'Yes',no:'No',
  fMananaP:'tomorrow',fPasadoP:'overmorrow',fLunes:'monday',fMartes:'tuesday',fMiercoles:'wednesday',
  fJueves:'thursday',fViernes:'friday',fSabado:'saturday',fDomingo:'sunday',fHoyP:'today',
+ apSaturado:'The model is busy right now. Wait a minute or try the other one.',
+ apSinAcceso:'This feature is restricted. Ask Memo for access.',
+ apVencido:'Your access to this feature has expired.',apSinCreditos:'You have run out of analyses.',
+ apRestantes:'analyses left',
+ apModelo:'Which one should read it?',apClaude:'Claude',apGemini:'Gemini',
+ apClaudeD:'Sharper with technical text',apGeminiD:'Free, a bit simpler',
+ apNoListo:'not set up',apElegir:'Choose image',apCamara:'Take photo',
+ apPrivacidad:'When you choose an image, iOS shows its own picker. The app only receives the photo you tap, never your library.',
+ apQuitar:'Remove photo',
+ apuntes:'Notes',apFoto:'Take a photo',apTexto:'Paste text',apAnalizar:'Make sense of this',
+ apPensando:'Reading your notes…',apTitulo:'Title',apMateria:'Subject',
+ apResumen:'What it is about',apSimple:'In plain words',apIdeas:'Main ideas',
+ apConceptos:'Terms it uses',apTarjetas:'To review',apFechas:'Dates I found',
+ apFaltante:'This could not be read',apGuardar:'Save as note',apCrearTarea:'Create task',
+ apOtra:'Analyse another',apPegaAqui:'Paste or type the technical text you want to understand…',
+ apSinLlave:'The API key still needs to be set in Supabase.',
+ apError:'Could not process it. Try another photo or better light.',
+ apSinSesion:'Sign in to use this feature.',
+ apAviso:'The photo is processed and discarded, never stored.',
+ apGuardado:'Saved to today\'s note',apNoLegal:'Study support, not legal advice.',
+ apElige:'Take a photo of your notes or paste the text.',
  buscar:'Search',buscarPh:'Task, expense, person or note…',sinResultados:'Nothing found.',
  resTareas:'Tasks',resMovs:'Transactions',resNotas:'Notes',resPrestamos:'Loans',
  prestamos:'Loans',nuevoPrestamo:'New',porCobrar:'Owed to you',porPagar:'You owe',
@@ -4009,6 +4083,179 @@ function pintarFiltroHabitos(){
     '<button class="'+(filtroHab===o[0]?'act':'')+'" onclick="setFiltroHab(\''+o[0]+'\')">'+t(o[1])+'</button>').join('');
 }
 function setFiltroHab(v){filtroHab=v;sonPestana();pintarHabitos();}
+
+
+/* ============ apuntes: foto o texto → algo entendible ============ */
+let apImagen=null, apTipo='image/jpeg', apResultado=null, apTextoGuardado='';
+let apEstado={claude:true,gemini:false,preferido:'claude',acceso:true};
+async function apRevisarEstado(){
+  if(!sb||!sesion)return;
+  try{
+    const {data}=await sb.functions.invoke('apuntes',{body:{solo_estado:true}});
+    if(data&&!data.error)apEstado={...apEstado,...data};
+  }catch(e){}
+}
+
+async function abrirApuntes(){
+  apImagen=null;apResultado=null;apTextoGuardado='';
+  document.getElementById('modalApuntes').classList.add('act');
+  pintarApuntes();
+  await apRevisarEstado();
+  if(!apResultado)pintarApuntes();
+}
+function pintarApuntes(){
+  const c=document.getElementById('apCuerpo');
+  if(!sesion){
+    c.innerHTML='<div class="desc">'+t('apSinSesion')+'</div>'+
+      '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button></div>';
+    return;
+  }
+  if(apResultado){pintarResultado(c);return;}
+  const prov=(D.config&&D.config.proveedorApuntes)||apEstado.preferido||'claude';
+  const opcion=(k,nom,desc,listo)=>
+    '<button class="'+(prov===k?'on':'')+'"'+(listo?' onclick="setProveedor(\''+k+'\')"':' disabled style="opacity:.45"')+
+    ' style="flex:1;text-align:left;padding:11px 12px;line-height:1.3">'+
+    '<b style="display:block;font-size:14px">'+nom+'</b>'+
+    '<span style="font-size:11.5px;opacity:.85">'+(listo?desc:t('apNoListo'))+'</span></button>';
+
+  c.innerHTML=
+    '<div class="desc" style="margin-bottom:10px">'+t('apElige')+'</div>'+
+    (apImagen
+      ? '<img class="ap-prev" src="data:'+apTipo+';base64,'+apImagen+'">'+
+        '<button class="btn ghost" onclick="apQuitarFoto()" style="margin-bottom:12px">'+t('apQuitar')+'</button>'
+      : '<div class="acc-dia" style="margin:0 0 8px">'+
+        '<button class="btn ghost" onclick="document.getElementById(\'apCam\').click()">'+
+          '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;vertical-align:-3px;margin-right:6px">'+
+          '<path d="M3 8a2 2 0 012-2h2.3l1.2-2h6.9l1.2 2H21a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg>'+
+          t('apCamara')+'</button>'+
+        '<button class="btn ghost" onclick="document.getElementById(\'apGal\').click()">'+
+          '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;vertical-align:-3px;margin-right:6px">'+
+          '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5-5-6 6-3-3-4 4"/></svg>'+
+          t('apElegir')+'</button></div>'+
+        '<div class="ap-nota" style="margin:0 0 12px">'+t('apPrivacidad')+'</div>')+
+    '<input type="file" id="apCam" accept="image/*" capture="environment" style="display:none" onchange="apCargarFoto(this)">'+
+    '<input type="file" id="apGal" accept="image/*" style="display:none" onchange="apCargarFoto(this)">'+
+    '<label>'+t('apTexto')+'</label>'+
+    '<textarea class="campo" id="apTextoIn" placeholder="'+t('apPegaAqui')+'" style="min-height:90px">'+esc(apTextoGuardado)+'</textarea>'+
+    '<label>'+t('apModelo')+'</label>'+
+    '<div class="tipo-sel">'+
+      opcion('claude',t('apClaude'),t('apClaudeD'),apEstado.claude)+
+      opcion('gemini',t('apGemini'),t('apGeminiD'),apEstado.gemini)+'</div>'+
+    '<div class="ap-nota">'+t('apAviso')+' · '+t('apNoLegal')+'</div>'+
+    '<div class="acciones">'+
+    '<button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button>'+
+    '<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button></div>';
+}
+function apQuitarFoto(){apImagen=null;apGuardarTexto();pintarApuntes();}
+function apGuardarTexto(){
+  const e=document.getElementById('apTextoIn');
+  if(e)apTextoGuardado=e.value;
+}
+async function setProveedor(k){
+  apGuardarTexto();
+  D.config.proveedorApuntes=k;await escribir(D);sonPestana();pintarApuntes();
+}
+function apCargarFoto(inp){
+  const f=inp.files[0];if(!f)return;
+  const img=new Image(), lector=new FileReader();
+  lector.onload=()=>{img.src=lector.result;};
+  img.onload=()=>{
+    // se reduce antes de subir: menos datos, menos costo, misma legibilidad
+    const max=1600, esc=Math.min(1,max/Math.max(img.width,img.height));
+    const c=document.createElement('canvas');
+    c.width=Math.round(img.width*esc);c.height=Math.round(img.height*esc);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    apTipo='image/jpeg';
+    apImagen=c.toDataURL('image/jpeg',0.82).split(',')[1];
+    pintarApuntes();
+  };
+  lector.readAsDataURL(f);
+  apGuardarTexto();
+}
+
+async function analizarApuntes(){
+  const txt=(document.getElementById('apTextoIn')||{}).value||'';
+  if(!apImagen&&!txt.trim())return;
+  const c=document.getElementById('apCuerpo');
+  c.innerHTML='<div class="ap-cargando"><i></i>'+t('apPensando')+'</div>';
+  try{
+    const {data,error}=await sb.functions.invoke('apuntes',{
+      body:{imagen:apImagen,tipo:apTipo,texto:txt,idioma:idioma,hoy:hoyIso(),
+            proveedor:(D.config&&D.config.proveedorApuntes)||apEstado.preferido}
+    });
+    if(error)throw error;
+    const avisos={sin_llave:'apSinLlave',sin_acceso:'apSinAcceso',saturado:'apSaturado',
+                  vencido:'apVencido',sin_creditos:'apSinCreditos',sin_sesion:'apSinSesion'};
+    if(data&&avisos[data.error]){
+      c.innerHTML='<div class="vacio">'+t(avisos[data.error])+'</div>'+
+        '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button>'+
+        (data.error==='saturado'?'<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button>':'')+'</div>';
+      return;
+    }
+    if(!data||data.error)throw new Error(data&&data.detalle||'');
+    apResultado=data;sonCompleto();pintarApuntes();
+  }catch(e){
+    c.innerHTML='<div class="vacio">'+t('apError')+'</div>'+
+      '<div class="acciones"><button class="btn ghost" onclick="pintarApuntes()">'+t('apOtra')+'</button></div>';
+  }
+}
+
+function pintarResultado(c){
+  const r=apResultado;
+  let h='';
+  if(r.titulo)h+='<div class="nom" style="font-size:19px;font-family:Fraunces,serif">'+esc(r.titulo)+'</div>';
+  if(r.materia)h+='<div class="meta" style="margin:6px 0 4px"><span class="tag jade">'+esc(r.materia)+'</span></div>';
+  if(r.simple){h+='<div class="ap-sec">'+t('apSimple')+'</div><div class="ap-simple">'+esc(r.simple).replace(/\n/g,'<br>')+'</div>';}
+  if(r.resumen){h+='<div class="ap-sec">'+t('apResumen')+'</div><div class="desc" style="font-size:14px">'+esc(r.resumen)+'</div>';}
+  if(r.ideas&&r.ideas.length){
+    h+='<div class="ap-sec">'+t('apIdeas')+'</div>';
+    h+=r.ideas.map(i=>'<div class="ap-idea"><i></i><div>'+esc(i)+'</div></div>').join('');
+  }
+  if(r.conceptos&&r.conceptos.length){
+    h+='<div class="ap-sec">'+t('apConceptos')+'</div>';
+    h+=r.conceptos.map(x=>'<div class="ap-term"><b>'+esc(x.termino)+'</b><span class="desc">'+esc(x.definicion)+'</span></div>').join('');
+  }
+  if(r.tarjetas&&r.tarjetas.length){
+    h+='<div class="ap-sec">'+t('apTarjetas')+'</div>';
+    h+=r.tarjetas.map(x=>'<div class="ap-tarj"><b>'+esc(x.p)+'</b><span>'+esc(x.r)+'</span></div>').join('');
+  }
+  if(r.fechas&&r.fechas.length){
+    h+='<div class="ap-sec">'+t('apFechas')+'</div>';
+    h+=r.fechas.map((x,i)=>'<div class="ap-idea"><i style="background:var(--amber)"></i><div>'+esc(x.texto)+
+      ' · <b>'+esc(x.fecha||'')+'</b><br><button class="btn ghost chico" style="margin-top:6px" onclick="apTarea('+i+')">'+
+      t('apCrearTarea')+'</button></div></div>').join('');
+  }
+  if(r.faltante)h+='<div class="ap-nota"><b>'+t('apFaltante')+':</b> '+esc(r.faltante)+'</div>';
+  if(r.proveedor)h+='<div class="meta" style="margin-top:10px"><span class="tag">'+
+    (r.proveedor==='gemini'?t('apGemini'):t('apClaude'))+'</span></div>';
+  if(typeof r.creditos_restantes==='number')
+    h+='<div class="ap-nota">'+r.creditos_restantes+' '+t('apRestantes')+'</div>';
+  h+='<div class="ap-nota">'+t('apNoLegal')+'</div>';
+  h+='<div class="acciones"><button class="btn ghost" onclick="apReiniciar()">'+t('apOtra')+'</button>'+
+     '<button class="btn" onclick="apGuardarNota()">'+t('apGuardar')+'</button></div>';
+  c.innerHTML=h;
+}
+function apReiniciar(){apImagen=null;apResultado=null;apTextoGuardado='';pintarApuntes();}
+async function apTarea(i){
+  const f=apResultado.fechas[i];if(!f)return;
+  D.tareas.push({id:uid(),nom:f.texto,desc:apResultado.titulo||'',
+    fecha:/^\d{4}-\d{2}-\d{2}$/.test(f.fecha||'')?f.fecha:hoyIso(),
+    pri:'alta',cat:t('catsTarea')[0],hecho:false,historial:[]});
+  sonMarcar();await escribir(D);pintar();
+  aviso(t('apCrearTarea'),f.texto);
+}
+async function apGuardarNota(){
+  const r=apResultado,f=hoyIso();
+  let txt=(r.titulo?r.titulo+'\n\n':'')+(r.simple||r.resumen||'');
+  if(r.ideas&&r.ideas.length)txt+='\n\n'+r.ideas.map(i=>'• '+i).join('\n');
+  if(r.conceptos&&r.conceptos.length)
+    txt+='\n\n'+r.conceptos.map(x=>x.termino+': '+x.definicion).join('\n');
+  D.notas=D.notas||{};
+  D.notas[f]=(D.notas[f]?D.notas[f]+'\n\n':'')+txt;
+  await escribir(D);pintar();
+  cerrar('modalApuntes');sonCompleto();
+  aviso(t('apGuardado'),r.titulo||'');
+}
 
 /* ============ arranque ============ */
 document.querySelectorAll('nav button').forEach(b=>{
