@@ -682,9 +682,9 @@ html[data-tema="oscuro"] .desc{color:#B2C0CA}
 @media (prefers-reduced-motion:reduce){ .foco{transition:none} .fondo-app b{animation:none!important} }
 
 /* modo simplificado */
-html[data-simplificado="true"] nav button[data-t="dinero"],
-html[data-simplificado="true"] nav button[data-t="stats"]{display:none}
-html[data-simplificado="true"] nav button{font-size:11.5px}
+nav button{font-size:10.5px;padding:10px 1px 12px}
+nav button svg{width:19px;height:19px}
+@media (max-width:360px){ nav button{font-size:9.5px} nav button svg{width:18px;height:18px} }
 
 /* sub-pestañas dentro del modal */
 .sub2{display:none}
@@ -802,6 +802,26 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
 .guardado{padding:13px 14px;border-bottom:1px solid var(--linea-suave);cursor:pointer}
 .guardado:last-child{border-bottom:none}
 .guardado .nom{margin-bottom:3px}
+
+/* interruptores de secciones */
+.sw-fila{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 0;border-bottom:1px solid var(--linea-suave)}
+.sw-fila:last-child{border-bottom:none}
+.sw-fila span{display:flex;align-items:center;gap:9px;font-size:14.5px}
+.sw-fila svg{width:18px;height:18px;stroke:var(--ink-2);fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.sw{width:50px;height:30px;border-radius:16px;background:var(--fill);position:relative;
+  transition:background .2s ease;flex:none}
+.sw.on{background:var(--grad)}
+.sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;
+  background:#fff;transition:transform .2s cubic-bezier(.3,1.3,.5,1);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on i{transform:translateX(20px)}
+.sw.fijo{opacity:.4}
+.sw-fila em{font-style:normal;font-size:12px;color:var(--ink-3)}
+#s-estudio .chat-caja{max-height:none}
+#s-estudio .ap-tabs{position:sticky;top:0;z-index:20;padding:8px 0;
+  background:color-mix(in srgb,var(--paper) 84%,transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 </style>
 </head>
 <body>
@@ -864,9 +884,6 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
       <div style="display:flex;gap:8px">
         <button class="btn-icono" onclick="abrirBuscar()" aria-label="Buscar">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        </button>
-        <button class="btn-icono" onclick="abrirApuntes()" aria-label="Apuntes">
-          <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H19v15H6.5A2.5 2.5 0 004 20.5z"/><path d="M8 7.5h7M8 11h5"/></svg>
         </button>
         <button class="btn-icono" onclick="abrirAjustes()" aria-label="Ajustes">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1A1.7 1.7 0 008 19.4a1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H2a2 2 0 110-4h.1A1.7 1.7 0 004.6 8a1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.5V2a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.5 1H22a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
@@ -961,6 +978,15 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
     <div class="tit" style="margin-top:16px"><b data-i="tareas"></b><button class="btn ghost chico" onclick="abrirTarea()" data-i="nuevaTarea"></button></div>
     <div class="filtros" id="filtrosTarea"></div>
     <div id="listaTareas"></div>
+  </section>
+
+  <!-- ESTUDIO -->
+  <section id="s-estudio">
+    <div class="marca-barra" style="padding-bottom:8px">
+      <div class="marca-app" style="font-size:23px" data-i="estudio"></div>
+      <div class="marca-pie" data-i="estudioPie"></div>
+    </div>
+    <div id="apCuerpo"></div>
   </section>
 
   <!-- DINERO -->
@@ -1059,6 +1085,7 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
   <button data-t="hoy"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><span data-i="navHoy"></span></button>
   <button data-t="habitos"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><span data-i="navHabitos"></span></button>
   <button data-t="tareas"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span data-i="navTareas"></span></button>
+  <button data-t="estudio"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H19v15H6.5A2.5 2.5 0 004 20.5z"/><path d="M8 7.5h7M8 11h5"/></svg><span data-i="navEstudio"></span></button>
   <button data-t="dinero"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.7 5 3.2 5 1.3 5 3.3-2.2 3-5 3-5-1.1-5-3"/></svg><span data-i="navDinero"></span></button>
   <button data-t="stats"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg><span data-i="navDatos"></span></button>
 </div></nav>
@@ -1070,9 +1097,9 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
   <div class="filtros" id="subAjustesModal"></div>
   <div class="sub2" data-sub2="ajustes">
     <div class="ajuste">
-      <div class="nom" data-i="simplificado"></div>
-      <div class="desc" style="margin:6px 0 11px" data-i="simpDesc"></div>
-      <div class="opciones" id="opSimple"></div>
+      <div class="nom" data-i="seccionesTit"></div>
+      <div class="desc" style="margin:6px 0 12px" data-i="seccionesDesc"></div>
+      <div id="opSecciones"></div>
     </div>
     <div class="tit"><b data-i="ajustes"></b></div>
     <div class="ajuste">
@@ -1140,10 +1167,6 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
   <div class="acciones"><button class="btn ghost" onclick="cerrar('modalAjustes')" data-i="cancelar"></button></div>
 </div></div>
 
-<div class="modal" id="modalApuntes"><div class="hoja">
-  <h3 data-i="apuntes"></h3>
-  <div id="apCuerpo"></div>
-</div></div>
 <div class="modal" id="modalBuscar"><div class="hoja">
   <h3 data-i="buscar"></h3>
   <input class="campo" id="bTexto" oninput="correrBusqueda()" autocomplete="off">
@@ -1462,6 +1485,9 @@ es:{
  pComparar:'Compara los conceptos principales en una tabla de diferencias.',
  apVacio:'Escribe algo primero.',
  confirmado:'Correo confirmado',confirmadoTxt:'Gracias, tu cuenta quedó lista. Ya puedes entrar.',
+ estudio:'Estudio',estudioPie:'ANALIZA · PREGUNTA · REPASA',navEstudio:'Estudio',
+ seccionesTit:'Secciones visibles',seccionesDesc:'Apaga las que no uses. Inicio siempre se queda.',
+ siempre:'siempre',apLimpiar:'Limpiar',
  apuntes:'Apuntes',apFoto:'Tomar foto',apTexto:'Pegar texto',apAnalizar:'Entender esto',
  apPensando:'Leyendo tus apuntes…',apTitulo:'Título',apMateria:'Materia',
  apResumen:'De qué trata',apSimple:'En palabras simples',apIdeas:'Ideas principales',
@@ -1689,6 +1715,9 @@ en:{
  pComparar:'Compare the main concepts in a table of differences.',
  apVacio:'Write something first.',
  confirmado:'Email confirmed',confirmadoTxt:'Thanks, your account is ready. You can sign in now.',
+ estudio:'Study',estudioPie:'ANALYSE · ASK · REVIEW',navEstudio:'Study',
+ seccionesTit:'Visible sections',seccionesDesc:'Turn off what you do not use. Home always stays.',
+ siempre:'always',apLimpiar:'Clear',
  apuntes:'Notes',apFoto:'Take a photo',apTexto:'Paste text',apAnalizar:'Make sense of this',
  apPensando:'Reading your notes…',apTitulo:'Title',apMateria:'Subject',
  apResumen:'What it is about',apSimple:'In plain words',apIdeas:'Main ideas',
@@ -1937,7 +1966,7 @@ function color(p){return p>=80?'var(--jade)':p>=50?'var(--amber)':'var(--rust)';
 function corta(s){const d=desdeIso(s);return d.getDate()+' '+MESES()[d.getMonth()].slice(0,3);}
 function semanaDelAno(d){const a=new Date(d.getFullYear(),0,1);return Math.ceil(((d-a)/86400000+a.getDay()+1)/7);}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
+function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
 
 function semilla(){
   const t7=[1,1,1,1,1,1,1], lv=[1,1,1,1,1,0,0];
@@ -2098,10 +2127,14 @@ function pintarAjustes(){
   const fo=(D.config.fondo||'completo');
   document.getElementById('opFondo').innerHTML=[['completo','fCompleto'],['suave','fSuave'],['apagado','fApagado']].map(v=>
     '<button class="'+(fo===v[0]?'on':'')+'" onclick="setFondo(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
-  const sp=!!D.config.simplificado;
-  const eS=document.getElementById('opSimple');
-  if(eS)eS.innerHTML='<button class="'+(sp?'on':'')+'" onclick="setSimple(true)">'+t('activo')+'</button>'+
-    '<button class="'+(!sp?'on':'')+'" onclick="setSimple(false)">'+t('inactivo')+'</button>';
+  const eS=document.getElementById('opSecciones');
+  if(eS)eS.innerHTML=
+    '<div class="sw-fila"><span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/>'+
+    '<path d="M3 10h18M8 3v4M16 3v4"/></svg>'+t('navInicio')+'</span><em>'+t('siempre')+'</em></div>'+
+    SECCIONES.map(x=>
+      '<div class="sw-fila"><span><svg viewBox="0 0 24 24">'+x[2]+'</svg>'+t(x[1])+'</span>'+
+      '<button class="sw'+(visible(x[0])?' on':'')+'" onclick="alternarSeccion(\''+x[0]+'\')" '+
+      'aria-label="'+t(x[1])+'"><i></i></button></div>').join('');
   const le=(D.config.letra||'normal');
   document.getElementById('opLetra').innerHTML=[['chico','tChico'],['normal','tNormal'],['grande','tGrande']].map(v=>
     '<button class="'+(le===v[0]?'on':'')+'" onclick="setLetra(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
@@ -2944,7 +2977,7 @@ function cerrarTuto(){
 
 /* ============ nota del día ============ */
 async function guardarNota(fecha,val){
-  D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];
+  D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];
   const v=(val||'').trim();
   if(v)D.notas[fecha]=v;else delete D.notas[fecha];
   await escribir(D);
@@ -3109,7 +3142,7 @@ function puedeCongelar(f){
   return congelacionesLibres()>0;
 }
 async function alternarCongelar(f){
-  D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];
+  D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];
   if(congelado(f))D.congelados=D.congelados.filter(x=>x!==f);
   else{
     if(!puedeCongelar(f)){alert(t('yaCongelaste'));return;}
@@ -3543,7 +3576,7 @@ async function guardarCierre(){
   const lun=lunesDe(new Date());lun.setDate(lun.getDate()+7);
   ps.forEach(nom=>D.tareas.push({id:uid(),nom,desc:'',fecha:iso(lun),pri:'alta',
     cat:t('catsTarea')[1]||t('catsTarea')[0],hecho:false,historial:[]}));
-  D.cierres=D.cierres||{};D.chats=D.chats||[];D.cierres[k]={prioridades:ps,fecha:hoyIso()};
+  D.cierres=D.cierres||{};D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];D.cierres[k]={prioridades:ps,fecha:hoyIso()};
   await escribir(D);cerrar('modalCierre');sonCompleto();pintar();
 }
 
@@ -3837,7 +3870,7 @@ function aplicarLetra(){
 async function setLetra(v){D.config.letra=v;await escribir(D);aplicarLetra();pintarAjustes();}
 
 /* ============ deslizar entre pestañas ============ */
-const ORDEN=['inicio','hoy','habitos','tareas','dinero','stats'];
+const ORDEN=['inicio','hoy','habitos','tareas','estudio','dinero','stats'];
 let tx=0,ty=0;
 document.addEventListener('touchstart',e=>{
   if(e.touches.length!==1)return;
@@ -4037,21 +4070,35 @@ function pintarSubAjustes(){
 }
 function setSubAj(v){subAj=v;sonPestana();pintarSubAjustes();}
 
-/* ============ modo simplificado ============ */
-function aplicarSimple(){
-  const on=!!(D.config&&D.config.simplificado);
-  document.documentElement.setAttribute('data-simplificado',on?'true':'false');
+/* ============ secciones visibles ============ */
+const SECCIONES=[
+ ['hoy','navHoy','<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>'],
+ ['habitos','navHabitos','<path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>'],
+ ['tareas','navTareas','<path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/>'],
+ ['estudio','navEstudio','<path d="M4 5.5A2.5 2.5 0 016.5 3H19v15H6.5A2.5 2.5 0 004 20.5z"/><path d="M8 7.5h7M8 11h5"/>'],
+ ['dinero','navDinero','<path d="M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.7 5 3.2 5 1.3 5 3.3-2.2 3-5 3-5-1.1-5-3"/>'],
+ ['stats','navDatos','<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/>']
+];
+function ocultas(){return (D.config&&D.config.ocultas)||[];}
+function visible(k){return k==='inicio'||!ocultas().includes(k);}
+function aplicarSecciones(){
+  document.querySelectorAll('nav button[data-t]').forEach(b=>{
+    b.style.display=visible(b.dataset.t)?'':'none';
+  });
   const act=seccionActual();
-  if(on&&(act==='dinero'||act==='stats'))
-    document.querySelector('nav button[data-t="inicio"]').click();
+  if(!visible(act))document.querySelector('nav button[data-t="inicio"]').click();
 }
-async function setSimple(v){
-  D.config.simplificado=v;await escribir(D);aplicarSimple();pintarAjustes();
-  if(v)aviso(t('simplificado'),t('simpDesc'));
+async function alternarSeccion(k){
+  const l=ocultas().slice();
+  const i=l.indexOf(k);
+  if(i>=0)l.splice(i,1); else l.push(k);
+  D.config.ocultas=l;
+  await escribir(D);aplicarSecciones();pintarAjustes();sonPestana();
 }
-function ordenVisible(){
-  return ORDEN.filter(k=>!(D.config&&D.config.simplificado&&(k==='dinero'||k==='stats')));
-}
+function ordenVisible(){return ORDEN.filter(visible);}
+
+/* ============ modo simplificado (retirado) ============ */
+function aplicarSimple(){aplicarSecciones();}
 
 /* ============ nube de sincronización ============ */
 let hayPendiente=false;
@@ -4179,9 +4226,8 @@ async function apRevisarEstado(){
   }catch(e){}
 }
 async function abrirApuntes(tab){
-  apImagen=null;apResultado=null;apTextoGuardado='';editando=null;
-  apTab=tab||'analizar';
-  document.getElementById('modalApuntes').classList.add('act');
+  if(tab)apTab=tab;
+  editando=null;
   pintarApuntes();
   await apRevisarEstado();
   pintarApuntes();
@@ -4195,7 +4241,7 @@ function pintarApuntes(){
   const c=document.getElementById('apCuerpo');
   if(!sesion){
     c.innerHTML='<div class="desc">'+t('apSinSesion')+'</div>'+
-      '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button></div>';
+      '';
     return;
   }
   const tabs='<div class="filtros ap-tabs">'+
@@ -4239,7 +4285,7 @@ function vistaAnalizar(){
     selectorModelo()+
     '<div class="ap-nota">'+t('apAviso')+'</div>'+
     '<div class="acciones">'+
-    '<button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button>'+
+    '<button class="btn ghost" onclick="apReiniciar()">'+t('apLimpiar')+'</button>'+
     '<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button></div>';
 }
 function apQuitarFoto(){apImagen=null;apGuardarTexto();pintarApuntes();}
@@ -4299,7 +4345,7 @@ function textoDeResultado(r){
   return x.trim();
 }
 async function guardarComoChat(r,entrada){
-  D.chats=D.chats||[];
+  D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];
   const ch={id:uid(),titulo:r.titulo||t('apuntes'),materia:r.materia||'',
     creado:new Date().toISOString(),
     mensajes:[
@@ -4352,7 +4398,7 @@ async function apGuardarNota(){
   const txt=(r.titulo?r.titulo+'\n\n':'')+textoDeResultado(r);
   D.notas=D.notas||{};
   D.notas[f]=(D.notas[f]?D.notas[f]+'\n\n':'')+txt;
-  await escribir(D);pintar();cerrar('modalApuntes');sonCompleto();
+  await escribir(D);pintar();sonCompleto();
   aviso(t('apGuardado'),r.titulo||'');
 }
 
@@ -4418,7 +4464,7 @@ async function enviarChat(){
   const e=document.getElementById('chatIn');
   const txt=(e&&e.value||'').trim();
   if(!txt||chatPensando)return;
-  D.chats=D.chats||[];
+  D.chats=D.chats||[];D.config=D.config||{};D.config.ocultas=D.config.ocultas||[];
   let ch=chatDe(chatActivo);
   if(!ch){
     ch={id:uid(),titulo:txt.slice(0,44),materia:'',creado:new Date().toISOString(),mensajes:[]};
@@ -4485,6 +4531,7 @@ document.querySelectorAll('nav button').forEach(b=>{
     sonPestana();
     document.getElementById('s-'+b.dataset.t).classList.add('act');
     window.scrollTo(0,0);
+    if(b.dataset.t==='estudio')abrirApuntes();
     setTimeout(()=>guiaDeSeccion(false),420);
   };
 });
