@@ -771,6 +771,37 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
 .ap-cargando i{display:block;width:34px;height:34px;margin:0 auto 14px;border-radius:50%;
   border:3px solid var(--fill);border-top-color:var(--jade);animation:girar .9s linear infinite}
 @keyframes girar{to{transform:rotate(360deg)}}
+
+.ap-tabs{margin-bottom:12px}
+.chat-caja{max-height:46vh;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-bottom:10px;padding-right:2px}
+.burb{margin-bottom:12px;max-width:92%}
+.burb.yo{margin-left:auto}
+.burb .quien{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.burb.yo .quien{text-align:right}
+.burb .txt{padding:12px 14px;border-radius:16px;line-height:1.52;font-size:14.5px;white-space:pre-wrap;word-break:break-word}
+.burb.yo .txt{background:color-mix(in srgb,var(--jade) 20%,transparent);
+  border:1px solid color-mix(in srgb,var(--jade) 32%,transparent);border-bottom-right-radius:5px}
+.burb.ai .txt{background:color-mix(in srgb,var(--card) 72%,transparent);
+  border:1px solid var(--glass-borde);border-bottom-left-radius:5px}
+.burb .acc{display:flex;gap:6px;margin-top:6px}
+.burb.yo .acc{justify-content:flex-end}
+.burb .acc button{font-size:11.5px;color:var(--ink-3);padding:5px 9px;border-radius:8px;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--card) 40%,transparent)}
+.burb textarea{width:100%;min-height:110px;padding:11px;border-radius:14px;
+  border:1px solid var(--jade);background:var(--card);line-height:1.5;font-size:14.5px}
+.util{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:9px;scrollbar-width:none}
+.util::-webkit-scrollbar{display:none}
+.util button{white-space:nowrap;font-size:12.5px;padding:7px 12px;border-radius:20px;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--card) 55%,transparent);color:var(--ink-2)}
+.chat-envio{display:flex;gap:8px;align-items:flex-end}
+.chat-envio textarea{flex:1;min-height:46px;max-height:130px;padding:12px;border-radius:14px;
+  border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);resize:none;line-height:1.4}
+.chat-envio button{width:46px;height:46px;min-width:46px;border-radius:50%;background:var(--grad);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.chat-envio button svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.guardado{padding:13px 14px;border-bottom:1px solid var(--linea-suave);cursor:pointer}
+.guardado:last-child{border-bottom:none}
+.guardado .nom{margin-bottom:3px}
 </style>
 </head>
 <body>
@@ -1412,6 +1443,25 @@ es:{
  apNoListo:'no configurado',apElegir:'Elegir imagen',apCamara:'Tomar foto',
  apPrivacidad:'Al elegir una imagen, iOS te muestra su propio selector. La app solo recibe la foto que tú toques, nunca tu galería.',
  apQuitar:'Quitar foto',
+ apAnalizarT:'Analizar',apPreguntar:'Preguntar',apGuardados:'Guardados',
+ apEscribe:'Pregunta lo que quieras…',apEnviar:'Enviar',apPensandoChat:'Pensando…',
+ apNuevoChat:'Nueva conversación',apSinChats:'Todavía no hay nada guardado. Analiza unos apuntes o haz una pregunta.',
+ apCopiar:'Copiar',apCopiado:'Copiado',apEditar:'Editar',apListo:'Listo',apBorrarChat:'Borrar',
+ apTu:'Tú',apAsistente:'Asistente',apContinuar:'Seguir preguntando sobre esto',
+ apConfirmBorrar:'¿Borrar esta conversación?',
+ uExplica:'Explícamelo simple',uEsquema:'Hazme un esquema',uExamen:'Preguntas de examen',
+ uRedaccion:'Corrige mi redacción',uPlan:'Plan de estudio',uPasos:'Resuélvelo paso a paso',
+ uEjemplo:'Dame un ejemplo',uComparar:'Compara los conceptos',
+ pExplica:'Explícame esto como si no supiera nada del tema, con un ejemplo cotidiano.',
+ pEsquema:'Organiza esto en un esquema jerárquico, de lo general a lo particular.',
+ pExamen:'Hazme diez preguntas de examen sobre esto, con sus respuestas al final.',
+ pRedaccion:'Corrige la redacción de este texto sin cambiar mi voz ni el sentido. Dime qué cambiaste.',
+ pPlan:'Arma un plan de estudio para este tema, repartido en sesiones cortas.',
+ pPasos:'Resuélvelo paso a paso, explicando cada paso.',
+ pEjemplo:'Dame dos ejemplos concretos y aterrizados de esto.',
+ pComparar:'Compara los conceptos principales en una tabla de diferencias.',
+ apVacio:'Escribe algo primero.',
+ confirmado:'Correo confirmado',confirmadoTxt:'Gracias, tu cuenta quedó lista. Ya puedes entrar.',
  apuntes:'Apuntes',apFoto:'Tomar foto',apTexto:'Pegar texto',apAnalizar:'Entender esto',
  apPensando:'Leyendo tus apuntes…',apTitulo:'Título',apMateria:'Materia',
  apResumen:'De qué trata',apSimple:'En palabras simples',apIdeas:'Ideas principales',
@@ -1620,6 +1670,25 @@ en:{
  apNoListo:'not set up',apElegir:'Choose image',apCamara:'Take photo',
  apPrivacidad:'When you choose an image, iOS shows its own picker. The app only receives the photo you tap, never your library.',
  apQuitar:'Remove photo',
+ apAnalizarT:'Analyse',apPreguntar:'Ask',apGuardados:'Saved',
+ apEscribe:'Ask anything…',apEnviar:'Send',apPensandoChat:'Thinking…',
+ apNuevoChat:'New conversation',apSinChats:'Nothing saved yet. Analyse some notes or ask a question.',
+ apCopiar:'Copy',apCopiado:'Copied',apEditar:'Edit',apListo:'Done',apBorrarChat:'Delete',
+ apTu:'You',apAsistente:'Assistant',apContinuar:'Keep asking about this',
+ apConfirmBorrar:'Delete this conversation?',
+ uExplica:'Explain it simply',uEsquema:'Make an outline',uExamen:'Exam questions',
+ uRedaccion:'Fix my writing',uPlan:'Study plan',uPasos:'Solve step by step',
+ uEjemplo:'Give me an example',uComparar:'Compare the concepts',
+ pExplica:'Explain this as if I knew nothing about the subject, with an everyday example.',
+ pEsquema:'Organise this into a hierarchical outline, general to specific.',
+ pExamen:'Write ten exam questions about this, with the answers at the end.',
+ pRedaccion:'Fix the writing in this text without changing my voice or meaning. Tell me what you changed.',
+ pPlan:'Build a study plan for this topic, split into short sessions.',
+ pPasos:'Solve it step by step, explaining each step.',
+ pEjemplo:'Give me two concrete, grounded examples of this.',
+ pComparar:'Compare the main concepts in a table of differences.',
+ apVacio:'Write something first.',
+ confirmado:'Email confirmed',confirmadoTxt:'Thanks, your account is ready. You can sign in now.',
  apuntes:'Notes',apFoto:'Take a photo',apTexto:'Paste text',apAnalizar:'Make sense of this',
  apPensando:'Reading your notes…',apTitulo:'Title',apMateria:'Subject',
  apResumen:'What it is about',apSimple:'In plain words',apIdeas:'Main ideas',
@@ -1868,7 +1937,7 @@ function color(p){return p>=80?'var(--jade)':p>=50?'var(--amber)':'var(--rust)';
 function corta(s){const d=desdeIso(s);return d.getDate()+' '+MESES()[d.getMonth()].slice(0,3);}
 function semanaDelAno(d){const a=new Date(d.getFullYear(),0,1);return Math.ceil(((d-a)/86400000+a.getDay()+1)/7);}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
+function normalizar(){D.movs=D.movs||[];D.metas=D.metas||[];D.registro=D.registro||{};D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];D.presupuestos=D.presupuestos||{};D.config=D.config||{idioma:'es',tema:'auto'};}
 
 function semilla(){
   const t7=[1,1,1,1,1,1,1], lv=[1,1,1,1,1,0,0];
@@ -2875,7 +2944,7 @@ function cerrarTuto(){
 
 /* ============ nota del día ============ */
 async function guardarNota(fecha,val){
-  D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};
+  D.notas=D.notas||{};D.planes=D.planes||[];D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];
   const v=(val||'').trim();
   if(v)D.notas[fecha]=v;else delete D.notas[fecha];
   await escribir(D);
@@ -3040,7 +3109,7 @@ function puedeCongelar(f){
   return congelacionesLibres()>0;
 }
 async function alternarCongelar(f){
-  D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};
+  D.congelados=D.congelados||[];D.prestamos=D.prestamos||[];D.fijos=D.fijos||[];D.cierres=D.cierres||{};D.chats=D.chats||[];
   if(congelado(f))D.congelados=D.congelados.filter(x=>x!==f);
   else{
     if(!puedeCongelar(f)){alert(t('yaCongelaste'));return;}
@@ -3474,7 +3543,7 @@ async function guardarCierre(){
   const lun=lunesDe(new Date());lun.setDate(lun.getDate()+7);
   ps.forEach(nom=>D.tareas.push({id:uid(),nom,desc:'',fecha:iso(lun),pri:'alta',
     cat:t('catsTarea')[1]||t('catsTarea')[0],hecho:false,historial:[]}));
-  D.cierres=D.cierres||{};D.cierres[k]={prioridades:ps,fecha:hoyIso()};
+  D.cierres=D.cierres||{};D.chats=D.chats||[];D.cierres[k]={prioridades:ps,fecha:hoyIso()};
   await escribir(D);cerrar('modalCierre');sonCompleto();pintar();
 }
 
@@ -3612,6 +3681,14 @@ async function recuperarContra(){
   const {error}=await sb.auth.resetPasswordForEmail(m.trim(),{redirectTo:location.href.split('#')[0]});
   marcarSync('');
   avisoAuth(error?error.message:t('correoEnviado'));
+}
+async function revisarConfirmacion(){
+  const h=location.hash||'';
+  if(!h.includes('access_token')&&!h.includes('type=signup'))return;
+  if(h.includes('type=recovery'))return;
+  history.replaceState(null,'',location.pathname);
+  setTimeout(()=>aviso(t('confirmado'),t('confirmadoTxt')),700);
+  sonCompleto();
 }
 async function revisarRecuperacion(){
   if(!sb)return;
@@ -4085,9 +4162,15 @@ function pintarFiltroHabitos(){
 function setFiltroHab(v){filtroHab=v;sonPestana();pintarHabitos();}
 
 
-/* ============ apuntes: foto o texto → algo entendible ============ */
+/* ============ estudio: analizar, preguntar y guardados ============ */
 let apImagen=null, apTipo='image/jpeg', apResultado=null, apTextoGuardado='';
+let apTab='analizar', chatActivo=null, chatPensando=false, editando=null;
 let apEstado={claude:true,gemini:false,preferido:'claude',acceso:true};
+
+const UTILES=[['uExplica','pExplica'],['uPasos','pPasos'],['uEsquema','pEsquema'],
+  ['uExamen','pExamen'],['uEjemplo','pEjemplo'],['uComparar','pComparar'],
+  ['uRedaccion','pRedaccion'],['uPlan','pPlan']];
+
 async function apRevisarEstado(){
   if(!sb||!sesion)return;
   try{
@@ -4095,14 +4178,19 @@ async function apRevisarEstado(){
     if(data&&!data.error)apEstado={...apEstado,...data};
   }catch(e){}
 }
-
-async function abrirApuntes(){
-  apImagen=null;apResultado=null;apTextoGuardado='';
+async function abrirApuntes(tab){
+  apImagen=null;apResultado=null;apTextoGuardado='';editando=null;
+  apTab=tab||'analizar';
   document.getElementById('modalApuntes').classList.add('act');
   pintarApuntes();
   await apRevisarEstado();
-  if(!apResultado)pintarApuntes();
+  pintarApuntes();
 }
+function proveedorActual(){return (D.config&&D.config.proveedorApuntes)||apEstado.preferido||'claude';}
+async function setProveedor(k){apGuardarTexto();D.config.proveedorApuntes=k;await escribir(D);sonPestana();pintarApuntes();}
+function apGuardarTexto(){const e=document.getElementById('apTextoIn');if(e)apTextoGuardado=e.value;}
+function setApTab(v){apGuardarTexto();apTab=v;editando=null;sonPestana();pintarApuntes();}
+
 function pintarApuntes(){
   const c=document.getElementById('apCuerpo');
   if(!sesion){
@@ -4110,68 +4198,70 @@ function pintarApuntes(){
       '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button></div>';
     return;
   }
-  if(apResultado){pintarResultado(c);return;}
-  const prov=(D.config&&D.config.proveedorApuntes)||apEstado.preferido||'claude';
-  const opcion=(k,nom,desc,listo)=>
-    '<button class="'+(prov===k?'on':'')+'"'+(listo?' onclick="setProveedor(\''+k+'\')"':' disabled style="opacity:.45"')+
-    ' style="flex:1;text-align:left;padding:11px 12px;line-height:1.3">'+
-    '<b style="display:block;font-size:14px">'+nom+'</b>'+
-    '<span style="font-size:11.5px;opacity:.85">'+(listo?desc:t('apNoListo'))+'</span></button>';
+  const tabs='<div class="filtros ap-tabs">'+
+    [['analizar','apAnalizarT'],['preguntar','apPreguntar'],['guardados','apGuardados']].map(o=>
+      '<button class="'+(apTab===o[0]?'act':'')+'" onclick="setApTab(\''+o[0]+'\')">'+t(o[1])+'</button>').join('')+'</div>';
+  if(apTab==='analizar')c.innerHTML=tabs+vistaAnalizar();
+  else if(apTab==='preguntar')c.innerHTML=tabs+vistaChat();
+  else c.innerHTML=tabs+vistaGuardados();
+  if(apTab==='preguntar'){
+    const caja=document.getElementById('chatCaja');
+    if(caja)caja.scrollTop=caja.scrollHeight;
+  }
+}
 
-  c.innerHTML=
-    '<div class="desc" style="margin-bottom:10px">'+t('apElige')+'</div>'+
+function selectorModelo(){
+  const prov=proveedorActual();
+  const op=(k,nom,desc,listo)=>
+    '<button class="'+(prov===k?'on':'')+'"'+(listo?' onclick="setProveedor(\''+k+'\')"':' disabled style="opacity:.45"')+
+    ' style="flex:1;text-align:left;padding:10px 12px;line-height:1.3">'+
+    '<b style="display:block;font-size:13.5px">'+nom+'</b>'+
+    '<span style="font-size:11px;opacity:.85">'+(listo?desc:t('apNoListo'))+'</span></button>';
+  return '<label>'+t('apModelo')+'</label><div class="tipo-sel">'+
+    op('claude',t('apClaude'),t('apClaudeD'),apEstado.claude)+
+    op('gemini',t('apGemini'),t('apGeminiD'),apEstado.gemini)+'</div>';
+}
+
+function vistaAnalizar(){
+  if(apResultado)return htmlResultado();
+  return '<div class="desc" style="margin-bottom:10px">'+t('apElige')+'</div>'+
     (apImagen
       ? '<img class="ap-prev" src="data:'+apTipo+';base64,'+apImagen+'">'+
         '<button class="btn ghost" onclick="apQuitarFoto()" style="margin-bottom:12px">'+t('apQuitar')+'</button>'
       : '<div class="acc-dia" style="margin:0 0 8px">'+
-        '<button class="btn ghost" onclick="document.getElementById(\'apCam\').click()">'+
-          '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;vertical-align:-3px;margin-right:6px">'+
-          '<path d="M3 8a2 2 0 012-2h2.3l1.2-2h6.9l1.2 2H21a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg>'+
-          t('apCamara')+'</button>'+
-        '<button class="btn ghost" onclick="document.getElementById(\'apGal\').click()">'+
-          '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;vertical-align:-3px;margin-right:6px">'+
-          '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5-5-6 6-3-3-4 4"/></svg>'+
-          t('apElegir')+'</button></div>'+
+        '<button class="btn ghost" onclick="document.getElementById(\'apCam\').click()">'+t('apCamara')+'</button>'+
+        '<button class="btn ghost" onclick="document.getElementById(\'apGal\').click()">'+t('apElegir')+'</button></div>'+
         '<div class="ap-nota" style="margin:0 0 12px">'+t('apPrivacidad')+'</div>')+
     '<input type="file" id="apCam" accept="image/*" capture="environment" style="display:none" onchange="apCargarFoto(this)">'+
     '<input type="file" id="apGal" accept="image/*" style="display:none" onchange="apCargarFoto(this)">'+
     '<label>'+t('apTexto')+'</label>'+
-    '<textarea class="campo" id="apTextoIn" placeholder="'+t('apPegaAqui')+'" style="min-height:90px">'+esc(apTextoGuardado)+'</textarea>'+
-    '<label>'+t('apModelo')+'</label>'+
-    '<div class="tipo-sel">'+
-      opcion('claude',t('apClaude'),t('apClaudeD'),apEstado.claude)+
-      opcion('gemini',t('apGemini'),t('apGeminiD'),apEstado.gemini)+'</div>'+
-    '<div class="ap-nota">'+t('apAviso')+' · '+t('apNoLegal')+'</div>'+
+    '<textarea class="campo" id="apTextoIn" placeholder="'+t('apPegaAqui')+'" style="min-height:88px">'+esc(apTextoGuardado)+'</textarea>'+
+    selectorModelo()+
+    '<div class="ap-nota">'+t('apAviso')+'</div>'+
     '<div class="acciones">'+
     '<button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button>'+
     '<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button></div>';
 }
 function apQuitarFoto(){apImagen=null;apGuardarTexto();pintarApuntes();}
-function apGuardarTexto(){
-  const e=document.getElementById('apTextoIn');
-  if(e)apTextoGuardado=e.value;
-}
-async function setProveedor(k){
-  apGuardarTexto();
-  D.config.proveedorApuntes=k;await escribir(D);sonPestana();pintarApuntes();
-}
 function apCargarFoto(inp){
   const f=inp.files[0];if(!f)return;
+  apGuardarTexto();
   const img=new Image(), lector=new FileReader();
   lector.onload=()=>{img.src=lector.result;};
   img.onload=()=>{
-    // se reduce antes de subir: menos datos, menos costo, misma legibilidad
-    const max=1600, esc=Math.min(1,max/Math.max(img.width,img.height));
+    const max=1600, e=Math.min(1,max/Math.max(img.width,img.height));
     const c=document.createElement('canvas');
-    c.width=Math.round(img.width*esc);c.height=Math.round(img.height*esc);
+    c.width=Math.round(img.width*e);c.height=Math.round(img.height*e);
     c.getContext('2d').drawImage(img,0,0,c.width,c.height);
     apTipo='image/jpeg';
     apImagen=c.toDataURL('image/jpeg',0.82).split(',')[1];
     pintarApuntes();
   };
   lector.readAsDataURL(f);
-  apGuardarTexto();
 }
+
+const AVISOS={sin_llave:'apSinLlave',sin_acceso:'apSinAcceso',saturado:'apSaturado',
+  vencido:'apVencido',sin_creditos:'apSinCreditos',sin_sesion:'apSinSesion',vacio:'apVacio'};
 
 async function analizarApuntes(){
   const txt=(document.getElementById('apTextoIn')||{}).value||'';
@@ -4180,60 +4270,74 @@ async function analizarApuntes(){
   c.innerHTML='<div class="ap-cargando"><i></i>'+t('apPensando')+'</div>';
   try{
     const {data,error}=await sb.functions.invoke('apuntes',{
-      body:{imagen:apImagen,tipo:apTipo,texto:txt,idioma:idioma,hoy:hoyIso(),
-            proveedor:(D.config&&D.config.proveedorApuntes)||apEstado.preferido}
+      body:{imagen:apImagen,tipo:apTipo,texto:txt,idioma:idioma,hoy:hoyIso(),proveedor:proveedorActual()}
     });
     if(error)throw error;
-    const avisos={sin_llave:'apSinLlave',sin_acceso:'apSinAcceso',saturado:'apSaturado',
-                  vencido:'apVencido',sin_creditos:'apSinCreditos',sin_sesion:'apSinSesion'};
-    if(data&&avisos[data.error]){
-      c.innerHTML='<div class="vacio">'+t(avisos[data.error])+'</div>'+
-        '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalApuntes\')">'+t('cancelar')+'</button>'+
-        (data.error==='saturado'?'<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button>':'')+'</div>';
-      return;
-    }
-    if(!data||data.error)throw new Error(data&&data.detalle||'');
-    apResultado=data;sonCompleto();pintarApuntes();
-  }catch(e){
-    c.innerHTML='<div class="vacio">'+t('apError')+'</div>'+
-      '<div class="acciones"><button class="btn ghost" onclick="pintarApuntes()">'+t('apOtra')+'</button></div>';
-  }
+    if(data&&AVISOS[data.error])return apAviso(data.error);
+    if(!data||data.error)throw new Error('');
+    apResultado=data;sonCompleto();
+    await guardarComoChat(data,txt);
+    pintarApuntes();
+  }catch(e){apAviso('api');}
+}
+function apAviso(clave){
+  const c=document.getElementById('apCuerpo');
+  c.innerHTML='<div class="vacio">'+t(AVISOS[clave]||'apError')+'</div>'+
+    '<div class="acciones"><button class="btn ghost" onclick="pintarApuntes()">'+t('apOtra')+'</button>'+
+    (clave==='saturado'?'<button class="btn" onclick="analizarApuntes()">'+t('apAnalizar')+'</button>':'')+'</div>';
 }
 
-function pintarResultado(c){
+/* ---------- el resultado se vuelve conversación ---------- */
+function textoDeResultado(r){
+  let x='';
+  if(r.simple)x+=r.simple+'\n\n';
+  if(r.resumen)x+=r.resumen+'\n\n';
+  if(r.ideas&&r.ideas.length)x+=r.ideas.map(i=>'• '+i).join('\n')+'\n\n';
+  if(r.conceptos&&r.conceptos.length)x+=r.conceptos.map(c=>c.termino+': '+c.definicion).join('\n')+'\n\n';
+  if(r.tarjetas&&r.tarjetas.length)x+=r.tarjetas.map(c=>'? '+c.p+'\n= '+c.r).join('\n\n')+'\n\n';
+  if(r.faltante)x+='['+t('apFaltante')+': '+r.faltante+']';
+  return x.trim();
+}
+async function guardarComoChat(r,entrada){
+  D.chats=D.chats||[];
+  const ch={id:uid(),titulo:r.titulo||t('apuntes'),materia:r.materia||'',
+    creado:new Date().toISOString(),
+    mensajes:[
+      {rol:'yo',texto:entrada.trim()||('['+t('apFoto')+']')},
+      {rol:'ai',texto:textoDeResultado(r)}
+    ]};
+  D.chats.unshift(ch);
+  if(D.chats.length>20)D.chats=D.chats.slice(0,20);
+  chatActivo=ch.id;
+  await escribir(D);
+}
+function htmlResultado(){
   const r=apResultado;
   let h='';
   if(r.titulo)h+='<div class="nom" style="font-size:19px;font-family:Fraunces,serif">'+esc(r.titulo)+'</div>';
-  if(r.materia)h+='<div class="meta" style="margin:6px 0 4px"><span class="tag jade">'+esc(r.materia)+'</span></div>';
-  if(r.simple){h+='<div class="ap-sec">'+t('apSimple')+'</div><div class="ap-simple">'+esc(r.simple).replace(/\n/g,'<br>')+'</div>';}
-  if(r.resumen){h+='<div class="ap-sec">'+t('apResumen')+'</div><div class="desc" style="font-size:14px">'+esc(r.resumen)+'</div>';}
-  if(r.ideas&&r.ideas.length){
-    h+='<div class="ap-sec">'+t('apIdeas')+'</div>';
-    h+=r.ideas.map(i=>'<div class="ap-idea"><i></i><div>'+esc(i)+'</div></div>').join('');
-  }
-  if(r.conceptos&&r.conceptos.length){
-    h+='<div class="ap-sec">'+t('apConceptos')+'</div>';
-    h+=r.conceptos.map(x=>'<div class="ap-term"><b>'+esc(x.termino)+'</b><span class="desc">'+esc(x.definicion)+'</span></div>').join('');
-  }
-  if(r.tarjetas&&r.tarjetas.length){
-    h+='<div class="ap-sec">'+t('apTarjetas')+'</div>';
-    h+=r.tarjetas.map(x=>'<div class="ap-tarj"><b>'+esc(x.p)+'</b><span>'+esc(x.r)+'</span></div>').join('');
-  }
-  if(r.fechas&&r.fechas.length){
-    h+='<div class="ap-sec">'+t('apFechas')+'</div>';
-    h+=r.fechas.map((x,i)=>'<div class="ap-idea"><i style="background:var(--amber)"></i><div>'+esc(x.texto)+
+  if(r.materia)h+='<div class="meta" style="margin:6px 0"><span class="tag jade">'+esc(r.materia)+'</span></div>';
+  if(r.simple)h+='<div class="ap-sec">'+t('apSimple')+'</div><div class="ap-simple">'+esc(r.simple).replace(/\n/g,'<br>')+'</div>';
+  if(r.resumen)h+='<div class="ap-sec">'+t('apResumen')+'</div><div class="desc" style="font-size:14px">'+esc(r.resumen)+'</div>';
+  if(r.ideas&&r.ideas.length)h+='<div class="ap-sec">'+t('apIdeas')+'</div>'+
+    r.ideas.map(i=>'<div class="ap-idea"><i></i><div>'+esc(i)+'</div></div>').join('');
+  if(r.conceptos&&r.conceptos.length)h+='<div class="ap-sec">'+t('apConceptos')+'</div>'+
+    r.conceptos.map(x=>'<div class="ap-term"><b>'+esc(x.termino)+'</b><span class="desc">'+esc(x.definicion)+'</span></div>').join('');
+  if(r.tarjetas&&r.tarjetas.length)h+='<div class="ap-sec">'+t('apTarjetas')+'</div>'+
+    r.tarjetas.map(x=>'<div class="ap-tarj"><b>'+esc(x.p)+'</b><span>'+esc(x.r)+'</span></div>').join('');
+  if(r.fechas&&r.fechas.length)h+='<div class="ap-sec">'+t('apFechas')+'</div>'+
+    r.fechas.map((x,i)=>'<div class="ap-idea"><i style="background:var(--amber)"></i><div>'+esc(x.texto)+
       ' · <b>'+esc(x.fecha||'')+'</b><br><button class="btn ghost chico" style="margin-top:6px" onclick="apTarea('+i+')">'+
       t('apCrearTarea')+'</button></div></div>').join('');
-  }
   if(r.faltante)h+='<div class="ap-nota"><b>'+t('apFaltante')+':</b> '+esc(r.faltante)+'</div>';
   if(r.proveedor)h+='<div class="meta" style="margin-top:10px"><span class="tag">'+
     (r.proveedor==='gemini'?t('apGemini'):t('apClaude'))+'</span></div>';
-  if(typeof r.creditos_restantes==='number')
-    h+='<div class="ap-nota">'+r.creditos_restantes+' '+t('apRestantes')+'</div>';
+  if(typeof r.creditos_restantes==='number')h+='<div class="ap-nota">'+r.creditos_restantes+' '+t('apRestantes')+'</div>';
   h+='<div class="ap-nota">'+t('apNoLegal')+'</div>';
-  h+='<div class="acciones"><button class="btn ghost" onclick="apReiniciar()">'+t('apOtra')+'</button>'+
-     '<button class="btn" onclick="apGuardarNota()">'+t('apGuardar')+'</button></div>';
-  c.innerHTML=h;
+  h+='<div class="acc-dia"><button class="btn ghost" onclick="apReiniciar()">'+t('apOtra')+'</button>'+
+     '<button class="btn ghost" onclick="setApTab(\'preguntar\')">'+t('apContinuar')+'</button></div>'+
+     '<div style="height:8px"></div>'+
+     '<button class="btn" onclick="apGuardarNota()">'+t('apGuardar')+'</button>';
+  return h;
 }
 function apReiniciar(){apImagen=null;apResultado=null;apTextoGuardado='';pintarApuntes();}
 async function apTarea(i){
@@ -4241,20 +4345,135 @@ async function apTarea(i){
   D.tareas.push({id:uid(),nom:f.texto,desc:apResultado.titulo||'',
     fecha:/^\d{4}-\d{2}-\d{2}$/.test(f.fecha||'')?f.fecha:hoyIso(),
     pri:'alta',cat:t('catsTarea')[0],hecho:false,historial:[]});
-  sonMarcar();await escribir(D);pintar();
-  aviso(t('apCrearTarea'),f.texto);
+  sonMarcar();await escribir(D);pintar();aviso(t('apCrearTarea'),f.texto);
 }
 async function apGuardarNota(){
   const r=apResultado,f=hoyIso();
-  let txt=(r.titulo?r.titulo+'\n\n':'')+(r.simple||r.resumen||'');
-  if(r.ideas&&r.ideas.length)txt+='\n\n'+r.ideas.map(i=>'• '+i).join('\n');
-  if(r.conceptos&&r.conceptos.length)
-    txt+='\n\n'+r.conceptos.map(x=>x.termino+': '+x.definicion).join('\n');
+  const txt=(r.titulo?r.titulo+'\n\n':'')+textoDeResultado(r);
   D.notas=D.notas||{};
   D.notas[f]=(D.notas[f]?D.notas[f]+'\n\n':'')+txt;
-  await escribir(D);pintar();
-  cerrar('modalApuntes');sonCompleto();
+  await escribir(D);pintar();cerrar('modalApuntes');sonCompleto();
   aviso(t('apGuardado'),r.titulo||'');
+}
+
+/* ---------- conversación ---------- */
+function chatDe(id){return (D.chats||[]).find(c=>c.id===id);}
+function vistaChat(){
+  const ch=chatDe(chatActivo);
+  let h='<div class="chat-caja" id="chatCaja">';
+  if(!ch||!ch.mensajes.length){
+    h+='<div class="desc" style="padding:8px 2px 14px">'+t('apEscribe')+'</div>';
+  }else{
+    h+=ch.mensajes.map((m,i)=>burbuja(m,i)).join('');
+  }
+  if(chatPensando)h+='<div class="burb ai"><div class="quien">'+t('apAsistente')+
+    '</div><div class="txt">'+t('apPensandoChat')+'</div></div>';
+  h+='</div>';
+  h+='<div class="util">'+UTILES.map(u=>
+    '<button onclick="usarUtil(\''+u[1]+'\')">'+t(u[0])+'</button>').join('')+'</div>';
+  h+='<div class="chat-envio">'+
+    '<textarea id="chatIn" placeholder="'+t('apEscribe')+'" oninput="autoAlto(this)"></textarea>'+
+    '<button onclick="enviarChat()" aria-label="'+t('apEnviar')+'">'+
+    '<svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 8 6 8z"/></svg></button></div>';
+  if(ch)h+='<div class="acc-dia"><button class="btn ghost" onclick="nuevoChat()">'+t('apNuevoChat')+'</button></div>';
+  return h;
+}
+function autoAlto(e){e.style.height='auto';e.style.height=Math.min(e.scrollHeight,130)+'px';}
+function burbuja(m,i){
+  const yo=m.rol==='yo';
+  if(editando===i)
+    return '<div class="burb '+(yo?'yo':'ai')+'"><div class="quien">'+t(yo?'apTu':'apAsistente')+'</div>'+
+      '<textarea id="edit'+i+'">'+esc(m.texto)+'</textarea>'+
+      '<div class="acc"><button onclick="guardarEdicion('+i+')">'+t('apListo')+'</button></div></div>';
+  return '<div class="burb '+(yo?'yo':'ai')+'"><div class="quien">'+t(yo?'apTu':'apAsistente')+'</div>'+
+    '<div class="txt">'+esc(m.texto)+'</div>'+
+    '<div class="acc"><button onclick="copiar('+i+')">'+t('apCopiar')+'</button>'+
+    '<button onclick="editar('+i+')">'+t('apEditar')+'</button></div></div>';
+}
+function editar(i){editando=i;pintarApuntes();setTimeout(()=>{
+  const e=document.getElementById('edit'+i);if(e){e.focus();autoAlto(e);}},60);}
+async function guardarEdicion(i){
+  const e=document.getElementById('edit'+i),ch=chatDe(chatActivo);
+  if(e&&ch){ch.mensajes[i].texto=e.value;await escribir(D);}
+  editando=null;sonMarcar();pintarApuntes();
+}
+async function copiar(i){
+  const ch=chatDe(chatActivo);if(!ch)return;
+  const txt=ch.mensajes[i].texto;
+  try{await navigator.clipboard.writeText(txt);}
+  catch(e){
+    const a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);
+    a.select();try{document.execCommand('copy');}catch(_){}a.remove();
+  }
+  sonMarcar();aviso(t('apCopiado'),'');
+}
+function usarUtil(clave){
+  const e=document.getElementById('chatIn');
+  if(!e)return;
+  e.value=(e.value?e.value+'\n\n':'')+t(clave);
+  autoAlto(e);e.focus();
+}
+async function nuevoChat(){chatActivo=null;editando=null;sonPestana();pintarApuntes();}
+async function enviarChat(){
+  const e=document.getElementById('chatIn');
+  const txt=(e&&e.value||'').trim();
+  if(!txt||chatPensando)return;
+  D.chats=D.chats||[];
+  let ch=chatDe(chatActivo);
+  if(!ch){
+    ch={id:uid(),titulo:txt.slice(0,44),materia:'',creado:new Date().toISOString(),mensajes:[]};
+    D.chats.unshift(ch);
+    if(D.chats.length>20)D.chats=D.chats.slice(0,20);
+    chatActivo=ch.id;
+  }
+  ch.mensajes.push({rol:'yo',texto:txt});
+  if(ch.mensajes.length>30)ch.mensajes=ch.mensajes.slice(-30);
+  e.value='';chatPensando=true;
+  await escribir(D);pintarApuntes();
+  try{
+    const {data,error}=await sb.functions.invoke('apuntes',{
+      body:{modo:'chat',mensajes:ch.mensajes,idioma:idioma,hoy:hoyIso(),proveedor:proveedorActual()}
+    });
+    chatPensando=false;
+    if(error)throw error;
+    if(data&&AVISOS[data.error]){
+      ch.mensajes.push({rol:'ai',texto:t(AVISOS[data.error])});
+    }else if(data&&data.texto){
+      ch.mensajes.push({rol:'ai',texto:data.texto});
+      sonMarcar();
+    }else{
+      ch.mensajes.push({rol:'ai',texto:t('apError')});
+    }
+    await escribir(D);pintarApuntes();
+  }catch(err){
+    chatPensando=false;
+    ch.mensajes.push({rol:'ai',texto:t('apError')});
+    await escribir(D);pintarApuntes();
+  }
+}
+
+/* ---------- guardados ---------- */
+function vistaGuardados(){
+  const l=D.chats||[];
+  if(!l.length)return '<div class="vacio">'+t('apSinChats')+'</div>';
+  return '<div class="lista">'+l.map(ch=>{
+    const ult=ch.mensajes[ch.mensajes.length-1];
+    return '<div class="guardado" onclick="abrirChat(\''+ch.id+'\')">'+
+      '<div class="nom">'+esc(ch.titulo)+'</div>'+
+      '<div class="desc">'+esc((ult&&ult.texto||'').slice(0,110))+'</div>'+
+      '<div class="meta">'+(ch.materia?'<span class="tag jade">'+esc(ch.materia)+'</span>':'')+
+      '<span class="tag">'+corta(ch.creado.slice(0,10))+'</span>'+
+      '<span class="tag">'+ch.mensajes.length+'</span></div></div>';
+  }).join('')+'</div>'+
+  '<div style="height:9px"></div>'+
+  '<button class="btn ghost" onclick="borrarChatActual()">'+t('apBorrarChat')+'</button>';
+}
+function abrirChat(id){chatActivo=id;apTab='preguntar';editando=null;sonPestana();pintarApuntes();}
+async function borrarChatActual(){
+  if(!chatActivo){aviso(t('apGuardados'),t('apSinChats'));return;}
+  if(!confirm(t('apConfirmBorrar')))return;
+  D.chats=(D.chats||[]).filter(c=>c.id!==chatActivo);
+  chatActivo=null;await escribir(D);sonPestana();pintarApuntes();
 }
 
 /* ============ arranque ============ */
@@ -4287,6 +4506,7 @@ document.querySelectorAll('.modal').forEach(m=>{m.onclick=e=>{if(e.target===m)m.
   revisarAvisos();
   initNube();
   setTimeout(revisarRecuperacion,900);
+  setTimeout(revisarConfirmacion,1100);
   let omitir=false;
   try{omitir=localStorage.getItem(SIN_CUENTA)==='1';}catch(e){}
   setTimeout(()=>{ if(!sesion&&!omitir)mostrarAuth(); },350);
