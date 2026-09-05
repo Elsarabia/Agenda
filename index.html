@@ -822,6 +822,212 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
 #s-estudio .ap-tabs{position:sticky;top:0;z-index:20;padding:8px 0;
   background:color-mix(in srgb,var(--paper) 84%,transparent);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+
+/* ==================== más cristal, menos panel ==================== */
+.lista,.meta-c,.kpi,.barras,table,.ajuste,.vacio,.frase{
+  background:color-mix(in srgb,var(--card) 38%,transparent);
+  -webkit-backdrop-filter:blur(13px) saturate(160%);backdrop-filter:blur(13px) saturate(160%);
+  border:1px solid color-mix(in srgb,var(--glass-borde) 70%,transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 26%,transparent)}
+html[data-tema="oscuro"] .lista,html[data-tema="oscuro"] .meta-c,html[data-tema="oscuro"] .kpi,
+html[data-tema="oscuro"] .barras,html[data-tema="oscuro"] table,html[data-tema="oscuro"] .ajuste,
+html[data-tema="oscuro"] .vacio,html[data-tema="oscuro"] .frase{
+  background:color-mix(in srgb,var(--card) 46%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.relojes,.medidor,.saldo,.periodo-sel,.cal,.racha-card{
+  background:color-mix(in srgb,var(--card) 32%,transparent);
+  -webkit-backdrop-filter:blur(18px) saturate(175%);backdrop-filter:blur(18px) saturate(175%)}
+html[data-tema="oscuro"] .relojes,html[data-tema="oscuro"] .medidor,html[data-tema="oscuro"] .saldo,
+html[data-tema="oscuro"] .periodo-sel,html[data-tema="oscuro"] .cal,html[data-tema="oscuro"] .racha-card{
+  background:color-mix(in srgb,var(--card) 40%,transparent)}
+nav{background:color-mix(in srgb,var(--paper) 55%,transparent);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%)}
+.subnav,#s-estudio .ap-tabs{background:color-mix(in srgb,var(--paper) 58%,transparent)}
+.dia.n0,.dia:not([class*=" n"]){background:color-mix(in srgb,var(--h0) 55%,transparent)}
+.campo,.filtros button,.opciones button,.tipo-sel button,.dias-sem button,.util button{
+  background:color-mix(in srgb,var(--card) 48%,transparent)}
+.burb.ai .txt{background:color-mix(in srgb,var(--card) 52%,transparent)}
+th{background:color-mix(in srgb,var(--th) 30%,transparent)}
+
+/* el texto se refuerza porque hay menos panel debajo */
+.nom{font-weight:600;text-shadow:0 1px 2px color-mix(in srgb,var(--paper) 55%,transparent)}
+.tit b,.pct,.saldo-num,.racha-num,.kpi b{text-shadow:0 1px 3px color-mix(in srgb,var(--paper) 45%,transparent)}
+html[data-tema="oscuro"] .desc{color:#BAC7D1}
+
+/* ==================== ambientes más visibles ==================== */
+#particulasApp{opacity:.62}
+html[data-tema="oscuro"] #particulasApp{opacity:.7}
+.fondo-app b{opacity:.40}
+html[data-tema="oscuro"] .fondo-app b{opacity:.34}
+@keyframes respirar{0%,100%{opacity:.34}50%{opacity:.50}}
+
+/* ==================== marca de inicio ==================== */
+.marca-barra{align-items:center;padding:18px 2px 4px;gap:10px}
+.marca-app{
+  font-size:34px;line-height:1.02;letter-spacing:-1px;
+  background:linear-gradient(96deg,var(--h3) 0%,var(--jade) 34%,var(--h2) 58%,var(--jade-fuerte) 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:flotarMarca 5.5s ease-in-out infinite, tornasolMarca 13s ease-in-out infinite;
+  will-change:transform}
+.marca-pie{margin-top:4px;animation:flotarMarca 5.5s ease-in-out infinite;animation-delay:.18s}
+@keyframes flotarMarca{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@keyframes tornasolMarca{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media (max-width:360px){ .marca-app{font-size:29px} }
+@media (prefers-reduced-motion:reduce){ .marca-app,.marca-pie{animation:none!important} }
+
+/* opciones: que quepan las palabras largas */
+.opciones{display:flex;gap:7px;flex-wrap:wrap}
+.opciones button{
+  flex:1 1 auto;min-width:0;width:auto;
+  padding:10px 13px;font-size:13px;line-height:1.2;
+  white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#opAmbiente{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:7px}
+#opAmbiente button{flex:none;padding:11px 8px;font-size:12.5px;text-align:center}
+#opColor{display:flex;flex-wrap:wrap;gap:11px}
+.tipo-sel button{white-space:normal;min-width:0;overflow:hidden}
+.filtros button{flex:none}
+
+/* ==================== accesibilidad ==================== */
+/* :focus-visible y no :focus — así el anillo sale con teclado
+   o Control por Botón, pero nunca al tocar con el dedo */
+:focus{outline:none}
+:focus-visible{
+  outline:2.5px solid var(--jade);
+  outline-offset:3px;
+  border-radius:8px;
+  box-shadow:0 0 0 5px color-mix(in srgb,var(--jade) 22%,transparent)}
+.dia:focus-visible,.sw:focus-visible,.colores button:focus-visible{outline-offset:4px}
+.btn:focus-visible,.filtros button:focus-visible,.opciones button:focus-visible{border-radius:11px}
+
+/* iOS: ajuste del sistema para quien no tolera el cristal */
+@media (prefers-reduced-transparency: reduce){
+  .lista,.meta-c,.kpi,.barras,table,.ajuste,.vacio,.frase,
+  .relojes,.medidor,.saldo,.periodo-sel,.cal,.racha-card,
+  nav,.hoja,.subnav,.globo,.toast,.auth-card,.tuto-card{
+    background:var(--card)!important;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    border-color:var(--line)!important}
+  .fondo-app,#particulasApp{display:none}
+  body{background-image:none}
+}
+
+/* barra de desplazamiento a juego (solo escritorio; iOS usa la suya flotante) */
+@media (hover:hover){
+  *{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ink-3) 55%,transparent) transparent}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{
+    background:color-mix(in srgb,var(--ink-3) 45%,transparent);
+    border-radius:8px;border:2px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb,var(--jade) 65%,transparent);background-clip:content-box}
+}
+
+/* hover encerrado: sin esto iOS lo deja pegado al tocar */
+@media (hover:hover) and (pointer:fine){
+  .btn:not(.ghost):hover{filter:brightness(1.08)}
+  .btn.ghost:hover{background:color-mix(in srgb,var(--jade-soft) 45%,transparent);border-color:var(--jade)}
+  .btn-icono:hover{color:var(--jade);border-color:var(--jade)}
+  .filtros button:hover:not(.act),.opciones button:hover:not(.on){border-color:var(--jade);color:var(--jade)}
+  .fila:hover,.plantilla:hover,.pres-item:hover,.guardado:hover{background:color-mix(in srgb,var(--jade-soft) 26%,transparent)}
+  .dia:hover{filter:brightness(1.12)}
+  .colores button:hover{transform:scale(1.12)}
+  .borrar:hover{color:var(--rust)}
+  .posponer:hover{color:var(--jade)}
+  nav button:hover{color:var(--ink)}
+}
+
+/* tacto en listas: apenas perceptible, para no recalcular el desenfoque */
+.fila:active,.plantilla:active,.pres-item:active,.guardado:active{transform:scale(.985)}
+.fila,.plantilla,.pres-item,.guardado{transform-origin:center;transition:background .12s ease,transform .1s ease}
+
+/* estados vacíos: la invitación se anima al aparecer, no al pasar el cursor */
+.vacio.tocable svg{animation:invitar 2.8s ease-in-out infinite}
+@keyframes invitar{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-5px);opacity:.85}}
+.vacio.tocable b{animation:invitar 2.8s ease-in-out infinite;animation-delay:.2s}
+
+/* ==================== escritorio ==================== */
+@media (min-width:960px){
+  body{padding-bottom:24px;padding-left:224px}
+  nav{top:0;bottom:0;right:auto;width:224px;
+    border-top:none;border-right:1px solid var(--line);
+    padding:22px 14px calc(22px + env(safe-area-inset-bottom))}
+  .nav-in{flex-direction:column;gap:3px;max-width:none;height:100%}
+  nav button{flex:none;flex-direction:row;justify-content:flex-start;gap:13px;
+    padding:12px 14px;border-radius:12px;font-size:14.5px;font-weight:500}
+  nav button svg{width:20px;height:20px}
+  nav button.act{background:color-mix(in srgb,var(--jade-soft) 70%,transparent)}
+  nav .nav-in::before{content:'Agenda';font-family:'Fraunces',Georgia,serif;font-size:22px;
+    font-weight:600;padding:2px 14px 20px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent}
+
+  .wrap{max-width:880px;padding:0 30px;margin:0 auto}
+  .marca-barra{display:none}          /* el nombre ya vive en la barra lateral */
+  #s-inicio{padding-top:22px}
+
+  /* hojas modales al centro, no pegadas abajo */
+  .modal{align-items:center;padding:26px}
+  .hoja{max-width:600px;border-radius:22px;max-height:86vh;
+    transform:translateY(14px) scale(.97)}
+  .modal.act .hoja{transform:none}
+  .hoja::before{display:none}
+
+  /* botones flotantes fuera del camino de la barra lateral */
+  .nube-btn{left:auto;right:76px;bottom:22px}
+  .ayuda-btn{bottom:22px}
+  .toast{left:auto;right:22px;bottom:84px;max-width:380px;margin:0}
+
+  /* aire de escritorio */
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  #listaMetas{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  #listaMetas .meta-c{margin-bottom:0}
+  .barras-g{height:150px}
+  .chat-caja{max-height:none}
+  .burb{max-width:78%}
+  #s-estudio .ap-tabs{top:0}
+  .relojes{padding:22px}
+  .analogo{width:124px;height:124px;min-width:124px}
+  .hora{font-size:44px}
+  .tit{margin:26px 0 11px}
+}
+@media (min-width:1280px){
+  .wrap{max-width:1000px}
+  .dias{gap:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .vacio.tocable svg,.vacio.tocable b{animation:none!important}
+  .fila:active,.plantilla:active,.pres-item:active,.guardado:active{transform:none}
+}
+
+.pw-barra{height:6px;border-radius:4px;background:var(--fill);margin-top:8px;overflow:hidden}
+.pw-barra i{display:block;height:100%;border-radius:4px;transition:width .25s ease,background .25s ease}
+.pw-txt{font-size:12px;margin-top:6px;color:var(--ink-2);line-height:1.4}
+.qr-caja{background:#fff;padding:14px;border-radius:14px;display:inline-block;margin:10px 0}
+.qr-caja img,.qr-caja svg{display:block;width:190px;height:190px}
+.clave-manual{font-family:'Space Grotesk';font-size:13px;letter-spacing:1px;word-break:break-all;
+  background:color-mix(in srgb,var(--card) 60%,transparent);padding:10px 12px;border-radius:10px;
+  border:1px solid var(--line);margin:8px 0}
+
+.inst-por{padding:13px 15px;border-radius:14px;line-height:1.5;font-size:13.8px;margin-bottom:16px;
+  background:color-mix(in srgb,var(--jade-soft) 55%,transparent);
+  border:1px solid color-mix(in srgb,var(--jade) 25%,transparent)}
+.inst-paso{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--linea-suave)}
+.inst-paso:last-child{border-bottom:none}
+.inst-num{width:30px;height:30px;min-width:30px;border-radius:50%;background:var(--grad);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';
+  font-weight:700;font-size:14px}
+.inst-paso b{display:block;margin-bottom:3px;font-size:15px}
+.inst-paso span{font-size:13.4px;color:var(--ink-2);line-height:1.45}
+.inst-liga{font-family:'Space Grotesk';font-size:13.5px;word-break:break-all;text-align:center;
+  padding:12px;border-radius:12px;margin:14px 0 4px;
+  background:color-mix(in srgb,var(--card) 62%,transparent);border:1px solid var(--line)}
+.inst-listo{text-align:center;padding:26px 14px}
+.inst-listo svg{width:46px;height:46px;stroke:var(--jade);fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -836,12 +1042,15 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
     <div class="auth-marca-pie">habits · money · focus</div>
     <div class="auth-sub" id="authSub"></div>
     <input class="campo" id="authMail" type="email" autocomplete="email" inputmode="email" autocapitalize="off">
-    <input class="campo" id="authPass" type="password" autocomplete="current-password">
+    <input class="campo" id="authPass" type="password" autocomplete="current-password" oninput="pintarFuerza()">
+    <div class="pw-barra" id="pwBarra"></div>
+    <div class="pw-txt" id="pwTxt"></div>
     <div class="acc-dia">
       <button class="btn" onclick="entrarCuenta()" id="btnEntrar"></button>
       <button class="btn ghost" onclick="registrarCuenta()" id="btnRegistrar"></button>
     </div>
     <div class="auth-msg" id="authMsg"></div>
+    <button class="auth-link" onclick="abrirInstalar()" id="btnComoInstalar" style="color:var(--jade);font-weight:600"></button>
     <button class="auth-link" onclick="recuperarContra()" id="btnOlvide"></button>
     <button class="auth-link" onclick="usarSinCuenta()" id="btnSinCuenta"></button>
   </div>
@@ -880,9 +1089,12 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
   <!-- INICIO -->
   <section id="s-inicio" class="act">
     <div class="marca-barra">
-      <div class="marca-app">Agenda</div>
+      <div>
+        <div class="marca-app">Agenda</div>
+        <div class="marca-pie">habits · money · focus</div>
+      </div>
       <div style="display:flex;gap:8px">
-        <button class="btn-icono" onclick="abrirBuscar()" aria-label="Buscar">
+        <button class="btn-icono" onclick="abrirBuscar()" aria-label="Buscar" style="margin-left:auto">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         </button>
         <button class="btn-icono" onclick="abrirAjustes()" aria-label="Ajustes">
@@ -1148,6 +1360,9 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
     <div class="tit"><b data-i="notifs"></b></div>
     <div class="ajuste" id="bloqueNotifs"></div>
 
+    <div class="tit"><b data-i="seguridad"></b></div>
+    <div class="ajuste" id="bloqueSeguridad"></div>
+
     <div class="tit"><b data-i="cuenta"></b><span id="estadoSync"></span></div>
     <div class="ajuste" id="bloqueCuenta"></div>
 
@@ -1167,6 +1382,11 @@ html[data-tema="oscuro"][data-color="acero"]{--jade:#90A8C0;--jade-fuerte:#B4C6D
   <div class="acciones"><button class="btn ghost" onclick="cerrar('modalAjustes')" data-i="cancelar"></button></div>
 </div></div>
 
+
+<div class="modal" id="modalInstalar"><div class="hoja">
+  <h3 data-i="instalarTit"></h3>
+  <div id="instCuerpo"></div>
+</div></div>
 <div class="modal" id="modalBuscar"><div class="hoja">
   <h3 data-i="buscar"></h3>
   <input class="campo" id="bTexto" oninput="correrBusqueda()" autocomplete="off">
@@ -1500,6 +1720,22 @@ es:{
  apAviso:'La foto se procesa y se descarta, no se guarda en ningún lado.',
  apGuardado:'Guardado en la nota del día',apNoLegal:'Es apoyo para estudiar, no asesoría legal.',
  apElige:'Toma una foto de tus apuntes o pega el texto.',
+ comoInstalar:'¿Cómo la instalo?',instalarTit:'Instalar la app',
+ instalarPor:'Instalada funciona sin internet, abre a pantalla completa y puede mandarte notificaciones aunque tengas el teléfono bloqueado. En una pestaña normal, nada de eso funciona.',
+ iosPaso1:'Ábrela en Safari',iosPaso1d:'En Chrome no aparece la opción. Si estás en Chrome, copia la dirección y pégala en Safari.',
+ iosPaso2:'Toca el botón Compartir',iosPaso2d:'El cuadrito con la flecha hacia arriba, abajo al centro de la pantalla.',
+ iosPaso3:'Añadir a pantalla de inicio',iosPaso3d:'Deslízate en la lista hasta encontrarlo. Luego toca Añadir arriba a la derecha.',
+ iosPaso4:'Ábrela desde el ícono',iosPaso4d:'Ya no entres por Safari. El ícono de la A es la app.',
+ andPaso1:'Ábrela en Chrome',andPaso1d:'Si estás en otro navegador, pega la dirección en Chrome.',
+ andPaso2:'Menú de tres puntos',andPaso2d:'Arriba a la derecha.',
+ andPaso3:'Instalar aplicación',andPaso3d:'También puede decir Añadir a pantalla principal.',
+ andPaso4:'Ábrela desde el ícono',andPaso4d:'Queda en tu cajón de aplicaciones como cualquier otra.',
+ pcPaso1:'Busca el ícono de instalar',pcPaso1d:'En la barra de direcciones, del lado derecho: una pantalla con una flecha.',
+ pcPaso2:'O usa el menú',pcPaso2d:'Tres puntos → Guardar y compartir → Instalar página como aplicación.',
+ pcPaso3:'Se abre en su ventana',pcPaso3d:'Sin barras del navegador, como un programa normal.',
+ yaInstalada:'Ya está instalada',yaInstaladaD:'Estás usando la app instalada. Todo listo.',
+ instalarAhora:'Instalar ahora',copiarLiga:'Copiar la dirección',ligaCopiada:'Dirección copiada',
+ tuDispositivo:'En tu dispositivo',
  buscar:'Buscar',buscarPh:'Tarea, gasto, persona o nota…',sinResultados:'Nada encontrado.',
  resTareas:'Tareas',resMovs:'Movimientos',resNotas:'Notas',resPrestamos:'Préstamos',
  prestamos:'Préstamos',nuevoPrestamo:'Nuevo',porCobrar:'Por cobrar',porPagar:'Por pagar',
@@ -1536,9 +1772,26 @@ es:{
  plNegocioT:'Disciplina de negocio',plNegocioD:'Para quien trabaja por su cuenta.',
  plCalmaT:'Cerrar bien el día',plCalmaD:'Rutina de noche para dormir y arrancar mejor.',
  agregados:'hábitos agregados',subir:'Subir',bajar:'Bajar',orden:'Orden',
+ aConstelacion:'Constelación',aBrasas:'Brasas',aNieve:'Nieve',aOndas:'Ondas',
  ambiente:'Ambiente del fondo',aPuntos:'Puntos',aFaroles:'Faroles',aPetalos:'Pétalos',
  aBurbujas:'Burbujas',aLuciernagas:'Luciérnagas',aNinguno:'Nada',
  colorAcento:'Color de acento',cJade:'Jade',cCielo:'Cielo',cVioleta:'Violeta',cRosa:'Rosa',cLima:'Lima',cCobre:'Cobre',cAcero:'Acero',cIndigo:'Índigo',cMagenta:'Magenta',cAmbar:'Ámbar',cCoral:'Coral',cTurquesa:'Turquesa',
+ seguridad:'Seguridad',dobleFactor:'Verificación en dos pasos',
+ dfDesc:'Además de tu contraseña, pide un código de tu app de autenticación. Si alguien se roba tu contraseña, no entra.',
+ dfActivar:'Activar',dfDesactivar:'Desactivar',dfActiva:'Activada',dfInactiva:'Apagada',
+ dfEscanea:'Escanea este código con Google Authenticator, Authy o el llavero de iOS.',
+ dfManual:'O captura esta clave a mano:',dfCodigo:'Código de 6 dígitos',dfVerificar:'Verificar',
+ dfListo:'Verificación en dos pasos activada.',dfMal:'Código incorrecto. Intenta de nuevo.',
+ dfPide:'Escribe el código de tu app de autenticación',dfQuitar:'¿Desactivar la verificación en dos pasos?',
+ pwFuerza:'Fuerza',pwDebil:'Débil',pwMedia:'Regular',pwBuena:'Buena',pwFuerte:'Fuerte',
+ pwReglas:'Mínimo 10 caracteres, con mayúscula, minúscula, número y un símbolo.',
+ pwCorta:'Muy corta: mínimo 10 caracteres.',pwFalta:'Le falta: ',
+ pwMayus:'una mayúscula',pwMinus:'una minúscula',pwNum:'un número',pwSimb:'un símbolo',
+ pwComun:'Esa contraseña es demasiado común. Elige otra.',
+ sesionesTit:'Cerrar sesión en todos lados',sesionesDesc:'Te saca de todos los dispositivos, incluido este.',
+ cerrarTodo:'Cerrar en todos',topeDiario:'Tope diario',quedanHoy:'te quedan hoy',
+ apTope:'Llegaste a tu tope de análisis por hoy. Se reinicia mañana.',
+ apGrande:'El archivo es muy grande. Toma la foto de nuevo.',
  cuenta:'Cuenta',sinCuenta:'Sin cuenta. Tus datos solo están en este dispositivo.',
  correo:'Correo',contrasena:'Contraseña',entrar:'Entrar',crearCuenta:'Crear cuenta',
  cerrarSesion:'Cerrar sesión',sincronizarAhora:'Sincronizar ahora',sesionComo:'Sesión iniciada como',
@@ -1730,6 +1983,22 @@ en:{
  apAviso:'The photo is processed and discarded, never stored.',
  apGuardado:'Saved to today\'s note',apNoLegal:'Study support, not legal advice.',
  apElige:'Take a photo of your notes or paste the text.',
+ comoInstalar:'How do I install it?',instalarTit:'Install the app',
+ instalarPor:'Installed, it works offline, opens full screen and can send you notifications even with the phone locked. In a normal tab, none of that works.',
+ iosPaso1:'Open it in Safari',iosPaso1d:'The option does not exist in Chrome. If you are in Chrome, copy the address and paste it into Safari.',
+ iosPaso2:'Tap the Share button',iosPaso2d:'The square with an arrow pointing up, at the bottom centre of the screen.',
+ iosPaso3:'Add to Home Screen',iosPaso3d:'Scroll down the list to find it. Then tap Add, top right.',
+ iosPaso4:'Open it from the icon',iosPaso4d:'Stop going in through Safari. The A icon is the app.',
+ andPaso1:'Open it in Chrome',andPaso1d:'If you are in another browser, paste the address into Chrome.',
+ andPaso2:'Three-dot menu',andPaso2d:'Top right.',
+ andPaso3:'Install app',andPaso3d:'It may also say Add to Home screen.',
+ andPaso4:'Open it from the icon',andPaso4d:'It sits in your app drawer like any other.',
+ pcPaso1:'Look for the install icon',pcPaso1d:'In the address bar, on the right: a screen with an arrow.',
+ pcPaso2:'Or use the menu',pcPaso2d:'Three dots → Cast, save and share → Install page as app.',
+ pcPaso3:'It opens in its own window',pcPaso3d:'No browser bars, like a normal program.',
+ yaInstalada:'Already installed',yaInstaladaD:'You are using the installed app. All set.',
+ instalarAhora:'Install now',copiarLiga:'Copy the address',ligaCopiada:'Address copied',
+ tuDispositivo:'On your device',
  buscar:'Search',buscarPh:'Task, expense, person or note…',sinResultados:'Nothing found.',
  resTareas:'Tasks',resMovs:'Transactions',resNotas:'Notes',resPrestamos:'Loans',
  prestamos:'Loans',nuevoPrestamo:'New',porCobrar:'Owed to you',porPagar:'You owe',
@@ -1766,9 +2035,26 @@ en:{
  plNegocioT:'Business discipline',plNegocioD:'For people working for themselves.',
  plCalmaT:'Close the day well',plCalmaD:'An evening routine for better sleep and a better start.',
  agregados:'habits added',subir:'Up',bajar:'Down',orden:'Order',
+ aConstelacion:'Constellation',aBrasas:'Embers',aNieve:'Snow',aOndas:'Waves',
  ambiente:'Background mood',aPuntos:'Dots',aFaroles:'Lanterns',aPetalos:'Petals',
  aBurbujas:'Bubbles',aLuciernagas:'Fireflies',aNinguno:'None',
  colorAcento:'Accent colour',cJade:'Jade',cCielo:'Sky',cVioleta:'Violet',cRosa:'Rose',cLima:'Lime',cCobre:'Copper',cAcero:'Steel',cIndigo:'Indigo',cMagenta:'Magenta',cAmbar:'Amber',cCoral:'Coral',cTurquesa:'Teal',
+ seguridad:'Security',dobleFactor:'Two-step verification',
+ dfDesc:'On top of your password, it asks for a code from your authenticator app. If someone steals your password, they still cannot get in.',
+ dfActivar:'Turn on',dfDesactivar:'Turn off',dfActiva:'On',dfInactiva:'Off',
+ dfEscanea:'Scan this code with Google Authenticator, Authy or the iOS keychain.',
+ dfManual:'Or type this key by hand:',dfCodigo:'6-digit code',dfVerificar:'Verify',
+ dfListo:'Two-step verification is on.',dfMal:'Wrong code. Try again.',
+ dfPide:'Enter the code from your authenticator app',dfQuitar:'Turn off two-step verification?',
+ pwFuerza:'Strength',pwDebil:'Weak',pwMedia:'Fair',pwBuena:'Good',pwFuerte:'Strong',
+ pwReglas:'At least 10 characters, with upper case, lower case, a number and a symbol.',
+ pwCorta:'Too short: 10 characters minimum.',pwFalta:'Missing: ',
+ pwMayus:'an upper case letter',pwMinus:'a lower case letter',pwNum:'a number',pwSimb:'a symbol',
+ pwComun:'That password is too common. Pick another.',
+ sesionesTit:'Sign out everywhere',sesionesDesc:'Signs you out on every device, including this one.',
+ cerrarTodo:'Sign out everywhere',topeDiario:'Daily limit',quedanHoy:'left today',
+ apTope:'You hit your analysis limit for today. It resets tomorrow.',
+ apGrande:'That file is too big. Take the photo again.',
  cuenta:'Account',sinCuenta:'No account. Your data only lives on this device.',
  correo:'Email',contrasena:'Password',entrar:'Sign in',crearCuenta:'Create account',
  cerrarSesion:'Sign out',sincronizarAhora:'Sync now',sesionComo:'Signed in as',
@@ -1833,6 +2119,7 @@ function initNube(){
     const antes=sesion;sesion=ses||null;pintarCuenta();
     if(sesion&&!antes){sincronizarInicio();refrescarSub();}
     if(typeof pintarNotifs==='function')pintarNotifs();
+    if(typeof pintarSeguridad==='function')pintarSeguridad();
     pintarNube();
   });
 }
@@ -1917,10 +2204,19 @@ async function entrarCuenta(){
   marcarSync('cargando');
   const {error}=await sb.auth.signInWithPassword(cr);
   if(error){marcarSync('');avisoAuth(t('revisaCorreo')+' '+error.message);}
-  else{avisoAuth('');sonCompleto();ocultarAuth();}
+  else{
+    const paso=await pedirSegundoFactor();
+    if(!paso){await sb.auth.signOut();marcarSync('');return;}
+    avisoAuth('');sonCompleto();ocultarAuth();
+  }
 }
 async function registrarCuenta(){
   const cr=credenciales();if(!cr)return;
+  const r=evaluarPw(cr.password);
+  if(!r.valida){
+    avisoAuth(r.comun?t('pwComun'):r.corta?t('pwCorta'):t('pwFalta')+r.falta.join(', '));
+    return;
+  }
   marcarSync('cargando');
   const {error}=await sb.auth.signUp(cr);
   marcarSync('');
@@ -2075,6 +2371,7 @@ function temaEfectivo(){
 }
 function aplicarTema(){
   const e=temaEfectivo();
+  const previo=document.documentElement.getAttribute('data-tema');
   document.documentElement.setAttribute('data-tema',e);
   document.documentElement.setAttribute('data-color',D.config.color||'jade');
   document.getElementById('metaTema').setAttribute('content',e==='oscuro'?'#11171C':'#E7EAED');
@@ -2110,6 +2407,7 @@ function pintarTextos(){
   if(typeof pintarSubAjustes==='function')pintarSubAjustes();
   if(typeof pintarCuenta==='function')pintarCuenta();
   if(typeof pintarNotifs==='function')pintarNotifs();
+  if(typeof pintarSeguridad==='function')pintarSeguridad();
 }
 function pintarAjustes(){
   document.getElementById('opTema').innerHTML=['auto','claro','oscuro'].map(v=>
@@ -2122,7 +2420,8 @@ function pintarAjustes(){
   const am=(D.config.ambiente||'puntos');
   const eA=document.getElementById('opAmbiente');
   if(eA)eA.innerHTML=[['puntos','aPuntos'],['faroles','aFaroles'],['petalos','aPetalos'],
-    ['burbujas','aBurbujas'],['luciernagas','aLuciernagas'],['ninguno','aNinguno']].map(v=>
+    ['burbujas','aBurbujas'],['luciernagas','aLuciernagas'],['constelacion','aConstelacion'],
+    ['brasas','aBrasas'],['nieve','aNieve'],['ondas','aOndas'],['ninguno','aNinguno']].map(v=>
     '<button class="'+(am===v[0]?'on':'')+'" onclick="setAmbiente(\''+v[0]+'\')">'+t(v[1])+'</button>').join('');
   const fo=(D.config.fondo||'completo');
   document.getElementById('opFondo').innerHTML=[['completo','fCompleto'],['suave','fSuave'],['apagado','fApagado']].map(v=>
@@ -2773,25 +3072,49 @@ async function setSonido(v){D.config.sonido=v;await escribir(D);pintarAjustes();
 
 /* ============ partículas ============ */
 const rafs={};
-let spriteGlow=null;
-function glow(){
-  if(spriteGlow)return spriteGlow;
+const glows={};
+/* Un halo por color, dibujado una vez y reutilizado.
+   En claro se usa color saturado; el halo blanco no se ve sobre fondo claro. */
+function glow(rgb){
+  if(glows[rgb])return glows[rgb];
   const c=document.createElement('canvas');c.width=c.height=64;
   const x=c.getContext('2d');
   const g=x.createRadialGradient(32,32,0,32,32,32);
-  g.addColorStop(0,'rgba(255,255,255,1)');
-  g.addColorStop(.35,'rgba(255,255,255,.55)');
-  g.addColorStop(1,'rgba(255,255,255,0)');
+  g.addColorStop(0,'rgba('+rgb+',1)');
+  g.addColorStop(.32,'rgba('+rgb+',.55)');
+  g.addColorStop(1,'rgba('+rgb+',0)');
   x.fillStyle=g;x.fillRect(0,0,64,64);
-  spriteGlow=c;return c;
+  glows[rgb]=c;return c;
 }
 const AMBIENTES={
-  puntos:     {n:1.0, sube:true},
-  faroles:    {n:0.45,sube:true},
-  petalos:    {n:0.75,sube:false},
-  burbujas:   {n:0.65,sube:true},
-  luciernagas:{n:0.9, sube:true}
+  puntos:      {n:1.15,sube:true,  tam:1.7},
+  faroles:     {n:0.70,sube:true,  tam:1.6},
+  petalos:     {n:1.00,sube:false, tam:1.8},
+  burbujas:    {n:0.90,sube:true,  tam:1.7},
+  luciernagas: {n:1.10,sube:true,  tam:1.6},
+  constelacion:{n:0.75,sube:true,  tam:1.4},
+  brasas:      {n:1.00,sube:true,  tam:1.5},
+  nieve:       {n:1.20,sube:false, tam:1.6},
+  ondas:       {n:0.20,sube:true,  tam:1.0}
 };
+/* Cada ambiente tiene dos juegos de color: uno para claro y otro para oscuro.
+   En claro los tonos van profundos, en oscuro luminosos. */
+const PAL={
+  base:   {claro:['23,112,90','10,124,140','74,69,199','181,41,127','178,106,5'],
+           oscuro:['95,209,174','79,188,206','139,135,240','236,119,190','229,167,63']},
+  farol:  {claro:['198,116,12','214,138,20','176,96,10','224,158,44','190,104,16'],
+           oscuro:['255,196,92','255,171,64','255,214,130','255,183,77','255,205,110']},
+  petalo: {claro:['206,96,150','176,112,206','216,120,158','156,126,214','224,136,178'],
+           oscuro:['244,178,214','232,200,246','250,206,220','214,184,244','255,214,232']},
+  brasa:  {claro:['186,72,26','206,96,20','168,54,32','218,124,34','176,64,18'],
+           oscuro:['255,142,64','255,108,48','255,178,92','244,88,54','255,160,80']},
+  nieve:  {claro:['118,142,168','96,124,156','134,158,182','108,136,164','126,150,176'],
+           oscuro:['238,246,252','214,230,244','250,252,255','226,238,250','206,224,242']}
+};
+function paletaTema(grupo){
+  const osc=document.documentElement.getAttribute('data-tema')==='oscuro';
+  return PAL[grupo][osc?'oscuro':'claro'];
+}
 function estiloAmbiente(){return (D.config&&D.config.ambiente)||'puntos';}
 
 function iniciarParticulas(id,n){
@@ -2805,67 +3128,105 @@ function iniciarParticulas(id,n){
   let W=0,H=0;const ps=[];
   function dim(){W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;}
   dim();addEventListener('resize',dim);
-  const N=Math.max(6,Math.round((quieto?n/2:n)*cfg.n));
+  const N=Math.max(5,Math.round((quieto?n/2:n)*cfg.n));
   for(let i=0;i<N;i++){
+    let r;
+    if(est==='faroles')r=Math.random()*8+9;
+    else if(est==='burbujas')r=Math.random()*9+5;
+    else if(est==='brasas')r=Math.random()*2.6+1.4;
+    else if(est==='nieve')r=Math.random()*3.2+1.6;
+    else r=Math.random()*2.4+1.5;
     ps.push({
-      x:Math.random(), y:Math.random(),
-      r:(est==='faroles'?Math.random()*7+7:est==='burbujas'?Math.random()*7+3:Math.random()*1.9+.9),
-      vx:(Math.random()-.5)*.00035,
-      vy:(cfg.sube?-1:1)*(Math.random()*.00050+.00016),
-      a:Math.random()*.45+.20, c:i%5,
+      x:Math.random(), y:Math.random(), r:r*(cfg.tam||1),
+      vx:(Math.random()-.5)*(est==='nieve'?.00075:.00035),
+      vy:(cfg.sube?-1:1)*(Math.random()*.00062+.00022)*(est==='brasas'?1.5:1),
+      a:Math.random()*.42+.38, c:i%5,
       fase:Math.random()*6.2832, giro:Math.random()*6.2832,
-      vgiro:(Math.random()-.5)*.02, amp:Math.random()*.012+.004
+      vgiro:(Math.random()-.5)*.026, amp:Math.random()*.018+.006
     });
   }
-  const CLARO =['23,112,90','10,124,140','74,69,199','181,41,127','178,106,5'];
-  const OSCURO=['95,209,174','79,188,206','139,135,240','236,119,190','229,167,63'];
-  const FAROL =['255,196,92','255,171,64','255,214,130','255,183,77','255,205,110'];
-  const PETALO=['244,178,214','232,200,246','250,206,220','214,184,244','255,214,232'];
-  const t0=performance.now();
 
   function dibuja(p,pal,t){
     const px=p.x*W, py=p.y*H, r=p.r*dpr;
     if(est==='faroles'){
-      const col=FAROL[p.c], g=glow();
-      x.globalAlpha=p.a*0.85;
-      const s=r*4.2;
-      x.drawImage(g,px-s,py-s,s*2,s*2);
-      x.globalAlpha=Math.min(p.a*1.6,1);
+      const col=paletaTema('farol')[p.c];
+      x.globalAlpha=p.a*.75;
+      const s=r*4.8; x.drawImage(glow(col),px-s,py-s,s*2,s*2);
+      x.globalAlpha=Math.min(p.a*1.5,1);
       x.fillStyle='rgba('+col+',1)';
-      x.beginPath();
-      x.ellipse(px,py,r*0.52,r*0.74,0,0,6.2832);
-      x.fill();
+      x.beginPath();x.ellipse(px,py,r*.52,r*.74,0,0,6.2832);x.fill();
       x.globalAlpha=1;
     }else if(est==='petalos'){
       x.save();x.translate(px,py);x.rotate(p.giro);
-      x.fillStyle='rgba('+PETALO[p.c]+','+p.a+')';
-      x.beginPath();
-      x.ellipse(0,0,r*2.6,r*1.2,0,0,6.2832);
-      x.fill();
+      x.fillStyle='rgba('+paletaTema('petalo')[p.c]+','+p.a+')';
+      x.beginPath();x.ellipse(0,0,r*2.9,r*1.35,0,0,6.2832);x.fill();
       x.restore();
     }else if(est==='burbujas'){
-      x.strokeStyle='rgba('+pal[p.c]+','+(p.a*0.85)+')';
-      x.lineWidth=1.4*dpr;
+      x.strokeStyle='rgba('+pal[p.c]+','+(p.a*.9)+')';
+      x.lineWidth=1.7*dpr;
       x.beginPath();x.arc(px,py,r,0,6.2832);x.stroke();
-      x.fillStyle='rgba(255,255,255,'+(p.a*0.30)+')';
-      x.beginPath();x.arc(px-r*0.32,py-r*0.32,r*0.24,0,6.2832);x.fill();
-    }else if(est==='luciernagas'){
-      const pulso=0.35+0.65*Math.abs(Math.sin(t*0.0016+p.fase));
-      x.globalAlpha=p.a*pulso;
-      const g=glow(), s=r*5;
-      x.drawImage(g,px-s,py-s,s*2,s*2);
-      x.globalAlpha=Math.min(p.a*pulso*1.8,1);
-      x.fillStyle='rgba(255,240,170,1)';
-      x.beginPath();x.arc(px,py,r*0.8,0,6.2832);x.fill();
+      x.fillStyle='rgba('+pal[p.c]+','+(p.a*.14)+')';
+      x.beginPath();x.arc(px,py,r,0,6.2832);x.fill();
+      x.fillStyle='rgba(255,255,255,'+(p.a*.4)+')';
+      x.beginPath();x.arc(px-r*.32,py-r*.32,r*.22,0,6.2832);x.fill();
+    }else if(est==='luciernagas'||est==='brasas'){
+      const grupo=est==='brasas'?'brasa':'farol';
+      const col=paletaTema(grupo)[p.c];
+      const pulso=est==='brasas'
+        ? .45+.55*Math.abs(Math.sin(t*.0032+p.fase))
+        : .30+.70*Math.abs(Math.sin(t*.0016+p.fase));
+      x.globalAlpha=p.a*pulso*.8;
+      const s=r*6; x.drawImage(glow(col),px-s,py-s,s*2,s*2);
+      x.globalAlpha=Math.min(p.a*pulso*1.6,1);
+      x.fillStyle='rgba('+col+',1)';
+      x.beginPath();x.arc(px,py,r*.8,0,6.2832);x.fill();
       x.globalAlpha=1;
+    }else if(est==='nieve'){
+      const col=paletaTema('nieve')[p.c];
+      x.fillStyle='rgba('+col+','+p.a+')';
+      x.beginPath();x.arc(px,py,r,0,6.2832);x.fill();
     }else{
       x.fillStyle='rgba('+pal[p.c]+','+p.a+')';
       x.beginPath();x.arc(px,py,r,0,6.2832);x.fill();
     }
   }
+
+  /* líneas entre partículas cercanas */
+  function lineas(pal){
+    const lim=0.19;
+    x.lineWidth=1.1*dpr;
+    for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){
+      const dx=ps[i].x-ps[j].x, dy=ps[i].y-ps[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d>lim)continue;
+      x.strokeStyle='rgba('+pal[ps[i].c]+','+(0.30*(1-d/lim)).toFixed(3)+')';
+      x.beginPath();x.moveTo(ps[i].x*W,ps[i].y*H);x.lineTo(ps[j].x*W,ps[j].y*H);x.stroke();
+    }
+  }
+
+  /* cintas de seda que cruzan la pantalla */
+  function ondas(pal,t){
+    for(let k=0;k<4;k++){
+      const col=pal[k%pal.length];
+      const base=H*(0.24+k*0.19);
+      const amp=H*(0.045+k*0.012);
+      const vel=t*0.00016*(1+k*0.22);
+      x.beginPath();
+      for(let px=0;px<=W;px+=Math.max(6*dpr,W/120)){
+        const u=px/W;
+        const py=base+Math.sin(u*5.2+vel+k)*amp+Math.sin(u*11+vel*1.7)*amp*0.35;
+        px===0?x.moveTo(px,py):x.lineTo(px,py);
+      }
+      x.strokeStyle='rgba('+col+',.45)';
+      x.lineWidth=(2.4+k*0.7)*dpr;
+      x.stroke();
+    }
+  }
+
   function paso(t){
-    const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
+    const pal=paletaTema('base');
     x.clearRect(0,0,W,H);
+    if(est==='ondas'){ondas(pal,t);rafs[id]=requestAnimationFrame(paso);return;}
     for(const p of ps){
       p.x+=p.vx+Math.sin(t*0.0004+p.fase)*p.amp*0.02;
       p.y+=p.vy;
@@ -2873,13 +3234,16 @@ function iniciarParticulas(id,n){
       if(cfg.sube&&p.y<-.08){p.y=1.08;p.x=Math.random();}
       if(!cfg.sube&&p.y>1.08){p.y=-.08;p.x=Math.random();}
       if(p.x<-.08)p.x=1.08; if(p.x>1.08)p.x=-.08;
-      dibuja(p,pal,t-t0);
     }
+    if(est==='constelacion')lineas(pal);
+    for(const p of ps)dibuja(p,pal,t);
     rafs[id]=requestAnimationFrame(paso);
   }
-  if(quieto){const pal=document.documentElement.getAttribute('data-tema')==='oscuro'?OSCURO:CLARO;
-    for(const p of ps)dibuja(p,pal,0);}
-  else paso(performance.now());
+  if(quieto){
+    const pal=paletaTema('base');
+    if(est==='ondas')ondas(pal,0);
+    else{ if(est==='constelacion')lineas(pal); for(const p of ps)dibuja(p,pal,0); }
+  }else paso(performance.now());
 }
 function pararParticulas(id){if(rafs[id]){cancelAnimationFrame(rafs[id]);rafs[id]=null;}}
 async function setAmbiente(v){
@@ -2926,9 +3290,12 @@ function textosAuth(){
   document.getElementById('authSub').textContent=t('authSub');
   document.getElementById('authMail').placeholder=t('correo');
   document.getElementById('authPass').placeholder=t('contrasena');
+  const pt=document.getElementById('pwTxt');if(pt&&!pt.textContent)pt.textContent=t('pwReglas');
   document.getElementById('btnEntrar').textContent=t('entrar');
   document.getElementById('btnRegistrar').textContent=t('crearCuenta');
   document.getElementById('btnSinCuenta').textContent=t('seguirSinCuenta');
+  const bi=document.getElementById('btnComoInstalar');
+  if(bi){bi.textContent=t('comoInstalar');bi.style.display=esStandalone()?'none':'';}
   document.getElementById('btnIdiomaAuth').textContent=idioma==='es'?'EN':'ES';
 }
 function alternarIdioma(){setIdioma(idioma==='es'?'en':'es');setTimeout(textosAuth,60);}
@@ -3697,13 +4064,6 @@ async function posponer(ev,id){
   sonPestana();await escribir(D);pintar();
   aviso(t('pospuesta'),x.nom);
 }
-async function agregarRapido(){
-  const e=document.getElementById('rapidoTarea');
-  const n=e.value.trim();if(!n)return;
-  D.tareas.push({id:uid(),nom:n,desc:'',fecha:hoyIso(),pri:'media',
-    cat:t('catsTarea')[0],hecho:false,historial:[]});
-  e.value='';sonMarcar();await escribir(D);pintar();
-}
 
 /* ============ recuperar contraseña ============ */
 async function recuperarContra(){
@@ -4306,7 +4666,7 @@ function apCargarFoto(inp){
   lector.readAsDataURL(f);
 }
 
-const AVISOS={sin_llave:'apSinLlave',sin_acceso:'apSinAcceso',saturado:'apSaturado',
+const AVISOS={sin_llave:'apSinLlave',sin_acceso:'apSinAcceso',saturado:'apSaturado',tope_diario:'apTope',muy_grande:'apGrande',
   vencido:'apVencido',sin_creditos:'apSinCreditos',sin_sesion:'apSinSesion',vacio:'apVacio'};
 
 async function analizarApuntes(){
@@ -4520,6 +4880,194 @@ async function borrarChatActual(){
   if(!confirm(t('apConfirmBorrar')))return;
   D.chats=(D.chats||[]).filter(c=>c.id!==chatActivo);
   chatActivo=null;await escribir(D);sonPestana();pintarApuntes();
+}
+
+
+/* ============ contraseñas fuertes ============ */
+const COMUNES=['123456','12345678','password','contrasena','contraseña','qwerty','111111',
+  '123456789','abc123','password1','iloveyou','admin123','12345678910','agenda123'];
+function evaluarPw(p){
+  const falta=[];
+  if(!/[A-ZÁÉÍÓÚÑ]/.test(p))falta.push(t('pwMayus'));
+  if(!/[a-záéíóúñ]/.test(p))falta.push(t('pwMinus'));
+  if(!/\d/.test(p))falta.push(t('pwNum'));
+  if(!/[^A-Za-z0-9áéíóúñÁÉÍÓÚÑ]/.test(p))falta.push(t('pwSimb'));
+  const corta=p.length<10;
+  const comun=COMUNES.some(c=>p.toLowerCase().includes(c));
+  let puntos=0;
+  if(p.length>=10)puntos++;
+  if(p.length>=14)puntos++;
+  if(falta.length===0)puntos+=2;
+  else if(falta.length<=1)puntos++;
+  if(comun)puntos=Math.min(puntos,1);
+  return {corta,comun,falta,puntos:Math.min(puntos,4),
+    valida:!corta&&!comun&&falta.length===0};
+}
+function pintarFuerza(){
+  const e=document.getElementById('authPass'),b=document.getElementById('pwBarra');
+  if(!e||!b)return;
+  const v=e.value;
+  if(!v){b.innerHTML='';document.getElementById('pwTxt').textContent=t('pwReglas');return;}
+  const r=evaluarPw(v);
+  const cols=['var(--rust)','var(--rust)','var(--amber)','var(--h3)','var(--jade)'];
+  const nom=[t('pwDebil'),t('pwDebil'),t('pwMedia'),t('pwBuena'),t('pwFuerte')];
+  b.innerHTML='<i style="width:'+((r.puntos+1)*20)+'%;background:'+cols[r.puntos]+'"></i>';
+  const txt=document.getElementById('pwTxt');
+  if(r.comun)txt.textContent=t('pwComun');
+  else if(r.corta)txt.textContent=t('pwCorta');
+  else if(r.falta.length)txt.textContent=t('pwFalta')+r.falta.join(', ');
+  else txt.textContent=t('pwFuerza')+': '+nom[r.puntos];
+}
+
+/* ============ verificación en dos pasos ============ */
+let df={inscribiendo:null};
+async function estadoMfa(){
+  if(!sb||!sesion)return null;
+  try{
+    const {data}=await sb.auth.mfa.listFactors();
+    const v=(data&&data.totp||[]).find(f=>f.status==='verified');
+    return v||null;
+  }catch(e){return null;}
+}
+async function pintarSeguridad(){
+  const c=document.getElementById('bloqueSeguridad');if(!c)return;
+  if(!sesion){c.innerHTML='<div class="desc">'+t('notifsNoSesion')+'</div>';return;}
+  if(df.inscribiendo){
+    const f=df.inscribiendo;
+    c.innerHTML='<div class="nom">'+t('dobleFactor')+'</div>'+
+      '<div class="desc" style="margin:6px 0 10px">'+t('dfEscanea')+'</div>'+
+      '<div class="qr-caja">'+(f.qr||'')+'</div>'+
+      '<div class="desc">'+t('dfManual')+'</div>'+
+      '<div class="clave-manual">'+esc(f.secret||'')+'</div>'+
+      '<label>'+t('dfCodigo')+'</label>'+
+      '<input class="campo" id="dfCod" inputmode="numeric" autocomplete="one-time-code" maxlength="6">'+
+      '<div class="acc-dia"><button class="btn ghost" onclick="cancelarMfa()">'+t('cancelar')+'</button>'+
+      '<button class="btn" onclick="verificarMfa()">'+t('dfVerificar')+'</button></div>';
+    return;
+  }
+  const activo=await estadoMfa();
+  c.innerHTML='<div class="nom">'+t('dobleFactor')+' · '+(activo?t('dfActiva'):t('dfInactiva'))+'</div>'+
+    '<div class="desc" style="margin:6px 0 12px">'+t('dfDesc')+'</div>'+
+    (activo
+      ? '<button class="btn ghost" onclick="quitarMfa(\''+activo.id+'\')">'+t('dfDesactivar')+'</button>'
+      : '<button class="btn" onclick="iniciarMfa()">'+t('dfActivar')+'</button>')+
+    '<div class="tit" style="margin:20px 0 6px"><b>'+t('sesionesTit')+'</b></div>'+
+    '<div class="desc" style="margin-bottom:10px">'+t('sesionesDesc')+'</div>'+
+    '<button class="btn ghost" onclick="cerrarTodo()">'+t('cerrarTodo')+'</button>';
+}
+async function iniciarMfa(){
+  try{
+    const {data,error}=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'Agenda '+Date.now()});
+    if(error)throw error;
+    df.inscribiendo={id:data.id,qr:data.totp.qr_code,secret:data.totp.secret};
+    pintarSeguridad();
+  }catch(e){aviso(t('dobleFactor'),e.message||t('apError'));}
+}
+async function verificarMfa(){
+  const cod=(document.getElementById('dfCod')||{}).value||'';
+  if(cod.length<6)return;
+  try{
+    const f=df.inscribiendo;
+    const {data:ch,error:e1}=await sb.auth.mfa.challenge({factorId:f.id});
+    if(e1)throw e1;
+    const {error:e2}=await sb.auth.mfa.verify({factorId:f.id,challengeId:ch.id,code:cod});
+    if(e2)throw e2;
+    df.inscribiendo=null;sonCompleto();
+    aviso(t('dobleFactor'),t('dfListo'));
+    pintarSeguridad();
+  }catch(e){aviso(t('dobleFactor'),t('dfMal'));}
+}
+function cancelarMfa(){
+  if(df.inscribiendo)sb.auth.mfa.unenroll({factorId:df.inscribiendo.id}).catch(()=>{});
+  df.inscribiendo=null;pintarSeguridad();
+}
+async function quitarMfa(id){
+  if(!confirm(t('dfQuitar')))return;
+  try{await sb.auth.mfa.unenroll({factorId:id});}catch(e){}
+  pintarSeguridad();
+}
+async function cerrarTodo(){
+  if(!confirm(t('sesionesDesc')))return;
+  try{await sb.auth.signOut({scope:'global'});}catch(e){}
+  sesion=null;pintarCuenta();mostrarAuth();
+}
+/* si la cuenta pide segundo factor al entrar */
+async function pedirSegundoFactor(){
+  try{
+    const {data}=await sb.auth.mfa.listFactors();
+    const f=(data&&data.totp||[]).find(x=>x.status==='verified');
+    if(!f)return true;
+    const {data:aal}=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+    if(aal&&aal.currentLevel===aal.nextLevel)return true;
+    const cod=prompt(t('dfPide'));
+    if(!cod)return false;
+    const {data:ch}=await sb.auth.mfa.challenge({factorId:f.id});
+    const {error}=await sb.auth.mfa.verify({factorId:f.id,challengeId:ch.id,code:cod});
+    if(error){avisoAuth(t('dfMal'));return false;}
+    return true;
+  }catch(e){return true;}
+}
+
+
+/* ============ cómo instalar ============ */
+let promesaInstalar=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();promesaInstalar=e;});
+
+function plataforma(){
+  const u=navigator.userAgent;
+  if(/iPad|iPhone|iPod/.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))return 'ios';
+  if(/Android/.test(u))return 'android';
+  return 'pc';
+}
+function abrirInstalar(){
+  document.getElementById('modalInstalar').classList.add('act');
+  pintarInstalar();
+}
+function pintarInstalar(){
+  const c=document.getElementById('instCuerpo');if(!c)return;
+  if(esStandalone()){
+    c.innerHTML='<div class="inst-listo">'+
+      '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>'+
+      '<div class="nom" style="font-size:17px">'+t('yaInstalada')+'</div>'+
+      '<div class="desc" style="margin-top:6px">'+t('yaInstaladaD')+'</div></div>'+
+      '<div class="acciones"><button class="btn ghost" onclick="cerrar(\'modalInstalar\')">'+t('apListo')+'</button></div>';
+    return;
+  }
+  const p=plataforma();
+  const pasos = p==='ios'
+    ? [['iosPaso1','iosPaso1d'],['iosPaso2','iosPaso2d'],['iosPaso3','iosPaso3d'],['iosPaso4','iosPaso4d']]
+    : p==='android'
+    ? [['andPaso1','andPaso1d'],['andPaso2','andPaso2d'],['andPaso3','andPaso3d'],['andPaso4','andPaso4d']]
+    : [['pcPaso1','pcPaso1d'],['pcPaso2','pcPaso2d'],['pcPaso3','pcPaso3d']];
+  const nombre=p==='ios'?'iPhone / iPad':p==='android'?'Android':'PC / Mac';
+
+  c.innerHTML='<div class="inst-por">'+t('instalarPor')+'</div>'+
+    '<div class="tit" style="margin:0 0 6px"><b>'+t('tuDispositivo')+'</b><span>'+nombre+'</span></div>'+
+    '<div class="lista">'+pasos.map((x,i)=>
+      '<div class="inst-paso"><div class="inst-num">'+(i+1)+'</div>'+
+      '<div><b>'+t(x[0])+'</b><span>'+t(x[1])+'</span></div></div>').join('')+'</div>'+
+    '<div class="inst-liga">'+location.origin+location.pathname+'</div>'+
+    '<div class="acc-dia">'+
+    '<button class="btn ghost" onclick="copiarLiga()">'+t('copiarLiga')+'</button>'+
+    (promesaInstalar
+      ? '<button class="btn" onclick="instalarYa()">'+t('instalarAhora')+'</button>'
+      : '<button class="btn" onclick="cerrar(\'modalInstalar\')">'+t('apListo')+'</button>')+
+    '</div>';
+}
+async function copiarLiga(){
+  const liga=location.origin+location.pathname;
+  try{await navigator.clipboard.writeText(liga);}
+  catch(e){
+    const a=document.createElement('textarea');a.value=liga;document.body.appendChild(a);
+    a.select();try{document.execCommand('copy');}catch(_){}a.remove();
+  }
+  sonMarcar();aviso(t('ligaCopiada'),liga);
+}
+async function instalarYa(){
+  if(!promesaInstalar)return;
+  promesaInstalar.prompt();
+  try{await promesaInstalar.userChoice;}catch(e){}
+  promesaInstalar=null;cerrar('modalInstalar');
 }
 
 /* ============ arranque ============ */
